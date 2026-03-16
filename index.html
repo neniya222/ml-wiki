@@ -16,7 +16,7 @@
 
     <style>
         :root {
-            --fandom-bg: #191919;
+            --fandom-bg: #333333;
             --at-wiki-content-bg: #ffffff;
             --fandom-blue: #00d6d6;
             --sidebar-width: 260px;
@@ -24,88 +24,63 @@
         }
 
         body {
-            margin: 0;
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: var(--fandom-bg);
-            color: #333;
-            line-height: 1.6;
+            margin: 0; font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--fandom-bg); color: #333;
         }
 
-        /* ヘッダー */
         header {
-            height: var(--header-height);
-            background: #2a2f35;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 25px;
-            position: sticky; top: 0; z-index: 1000;
+            height: var(--header-height); background: #2a2f35; color: white;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 25px; position: sticky; top: 0; z-index: 1000;
             border-bottom: 3px solid var(--fandom-blue);
         }
 
-        .logo { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 1.2em; color: var(--fandom-blue); text-decoration: none; }
-        .material-symbols-outlined { vertical-align: middle; }
+        .logo { display: flex; align-items: center; gap: 8px; font-weight: bold; color: var(--fandom-blue); text-decoration: none; }
 
-        /* 検索バー */
+        /* 検索 */
         .search-container { position: relative; width: 300px; }
         .search-box {
             width: 100%; background: rgba(255,255,255,0.1); border: 1px solid #444;
-            border-radius: 4px; padding: 7px 10px 7px 35px; color: white; outline: none; font-family: inherit;
+            border-radius: 4px; padding: 7px 10px 7px 35px; color: white; outline: none;
         }
-        .search-box:focus { background: rgba(255,255,255,0.15); border-color: var(--fandom-blue); }
-        .search-icon { position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #888; font-size: 1.2rem; }
-        
         #search-results {
             position: absolute; top: 100%; left: 0; width: 100%;
             background: white; box-shadow: 0 8px 16px rgba(0,0,0,0.3);
             border-radius: 0 0 4px 4px; display: none; z-index: 1001;
         }
-        .search-item { padding: 12px; border-bottom: 1px solid #eee; text-decoration: none; color: #333; display: block; font-size: 0.9em; }
-        .search-item:hover { background: #f0f2f5; }
+        .search-item { padding: 12px; border-bottom: 1px solid #eee; text-decoration: none; color: #333; display: block; }
+        .no-result { padding: 12px; color: #999; text-align: center; font-size: 0.9em; }
 
         /* レイアウト */
         .wrapper { display: flex; max-width: 1440px; margin: 0 auto; }
 
-        /* サイドバー */
         nav {
-            width: var(--sidebar-width);
-            background: #fff;
-            min-height: calc(100vh - var(--header-height));
-            padding: 20px;
-            border-right: 1px solid #ddd;
-            flex-shrink: 0;
-            box-sizing: border-box;
+            width: var(--sidebar-width); background: #fff; padding: 20px;
+            border-right: 1px solid #ddd; flex-shrink: 0; display: flex; flex-direction: column;
         }
-        nav h3 { 
-            font-size: 0.85em; color: #888; border-bottom: 1px solid #eee; 
-            padding-bottom: 5px; margin: 25px 0 10px 0; 
-            display: flex; align-items: center; gap: 6px;
-        }
-        nav h3:first-child { margin-top: 0; }
+        .nav-content { flex-grow: 1; }
+        nav h3 { font-size: 0.85em; color: #888; border-bottom: 1px solid #eee; margin: 25px 0 10px 0; display: flex; align-items: center; gap: 6px; }
         nav ul { list-style: none; padding: 0; margin: 0; }
-        nav li a { 
-            text-decoration: none; color: #0066c0; display: block;
-            padding: 7px 10px; font-size: 0.9em; border-radius: 4px;
-        }
-        nav li a:hover { background: #eef9f9; }
+        nav li a { text-decoration: none; color: #0066c0; display: block; padding: 7px 10px; font-size: 0.9em; }
 
-        /* メイン */
+        /* 広告枠 (Fandomスタイル) */
+        .ad-space {
+            margin-top: 30px; padding: 15px; background: #f9f9f9;
+            border: 1px dashed #ccc; text-align: center; border-radius: 4px;
+        }
+        .ad-label { font-size: 10px; color: #bbb; margin-bottom: 5px; display: block; }
+        .ad-content { font-size: 12px; color: #666; }
+
         main { flex: 1; background: var(--at-wiki-content-bg); padding: 40px 60px; min-width: 0; }
         #wiki-view h1 { font-size: 2.2em; border-bottom: 4px solid #333; padding-bottom: 10px; margin-top: 0; }
         #wiki-view h2 { border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-top: 35px; border-left: 8px solid var(--fandom-blue); padding-left: 15px; }
 
         pre { background: #1e1e1e; padding: 20px; border-radius: 8px; overflow-x: auto; }
-        code { font-family: 'Consolas', monospace; background: #f4f4f4; padding: 2px 4px; border-radius: 4px; color: #d63384; }
-        pre code { background: none; color: inherit; padding: 0; }
-
-        /* 404画面 */
-        .error-container { text-align: center; padding: 80px 20px; color: #666; }
-        .big-icon { font-size: 5rem; color: #ffcc00; margin-bottom: 20px; }
+        code { font-family: 'Consolas', monospace; background: #f4f4f4; padding: 2px 4px; color: #d63384; }
 
         @media (max-width: 900px) {
             .wrapper { flex-direction: column; }
-            nav { width: 100%; min-height: auto; border-right: none; border-bottom: 1px solid #ddd; }
+            nav { width: 100%; border-right: none; }
             main { padding: 30px 20px; }
         }
     </style>
@@ -118,20 +93,29 @@
         <span>SERVER WIKI</span>
     </a>
     <div class="search-container">
-        <span class="material-symbols-outlined search-icon">search</span>
+        <span class="material-symbols-outlined search-icon" style="position:absolute; left:8px; top:50%; transform:translateY(-50%); color:#888;">search</span>
         <input type="text" id="search-input" class="search-box" placeholder="Wiki内を検索...">
         <div id="search-results"></div>
     </div>
 </header>
 
 <div class="wrapper">
-    <nav id="sidebar-nav">
-        <p style="font-size: 0.8em; color: #999;">メニューを読み込み中...</p>
+    <nav>
+        <div id="sidebar-nav" class="nav-content">
+            <p style="font-size: 0.8em; color: #999;">メニュー読み込み中...</p>
+        </div>
+
+        <div class="ad-space">
+            <span class="ad-label">ADVERTISEMENT</span>
+            <div class="ad-content">
+                ここにお得な情報や<br>サーバーの寄付ボタンなどを<br>設置できます
+            </div>
+        </div>
     </nav>
 
     <main>
         <article id="wiki-view">
-            <p>準備中...</p>
+            <p>読み込み中...</p>
         </article>
     </main>
 </div>
@@ -139,25 +123,20 @@
 <script>
     let wikiIndex = [];
 
-    // 初期化: JSON読み込み & メニュー生成
     async function initWiki() {
         try {
-            // 1. 全ページ名簿(検索用)の取得
             const resIndex = await fetch('./wikipageslist.json');
             wikiIndex = await resIndex.json();
 
-            // 2. メニュー構成の取得
             const resMenu = await fetch('./sidemenu.json');
             const menuData = await resMenu.json();
             
-            // 3. サイドメニューのHTML生成
             const nav = document.getElementById('sidebar-nav');
             nav.innerHTML = ''; 
             menuData.forEach(section => {
                 const h3 = document.createElement('h3');
                 h3.innerHTML = `<span class="material-symbols-outlined">list_alt</span> ${section.category}`;
                 nav.appendChild(h3);
-
                 const ul = document.createElement('ul');
                 section.links.forEach(link => {
                     const li = document.createElement('li');
@@ -166,15 +145,10 @@
                 });
                 nav.appendChild(ul);
             });
-
             updateContent(); 
-        } catch (e) {
-            console.error("Setup error:", e);
-            updateContent();
-        }
+        } catch (e) { console.error(e); updateContent(); }
     }
 
-    // 記事の読み込みと表示
     async function updateContent() {
         const view = document.getElementById('wiki-view');
         const hash = window.location.hash.replace('#', '') || 'home';
@@ -183,28 +157,27 @@
         try {
             const response = await fetch(`./pages/${hash}.md`);
             if (!response.ok) throw new Error('NOT_FOUND');
-            
-            const contentType = response.headers.get("content-type");
-            if (contentType && contentType.includes("text/html")) throw new Error('HTML_RETURNED');
+            let text = await response.text();
 
-            const md = await response.text();
-            view.innerHTML = marked.parse(md);
-            
+            // --- TITLE: ページのタイトル設定機能 ---
+            let pageTitle = "Server Official Wiki";
+            if (text.startsWith("TITLE:")) {
+                const firstLine = text.split('\n')[0];
+                pageTitle = firstLine.replace("TITLE:", "").trim();
+                text = text.replace(firstLine, "").trim(); // 1行目（タイトル設定）を本文から削除
+            }
+            document.title = pageTitle; // ブラウザのタブタイトルを更新
+
+            view.innerHTML = marked.parse(text);
             document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
             window.scrollTo(0, 0);
 
         } catch (e) {
-            view.innerHTML = `
-                <div class="error-container">
-                    <span class="material-symbols-outlined big-icon">warning</span>
-                    <h1>404 Not Found</h1>
-                    <p>ページ「${hash}」は見つかりませんでした。</p>
-                    <a href="#home" style="color:var(--fandom-blue); font-weight:bold; text-decoration:none;">ホームに戻る</a>
-                </div>`;
+            view.innerHTML = `<div style="text-align:center; padding:50px;"><h1>404</h1><p>見つかりません</p></div>`;
         }
     }
 
-    // 検索機能
+    // 検索機能の強化
     const sInput = document.getElementById('search-input');
     const sResults = document.getElementById('search-results');
 
@@ -214,19 +187,26 @@
         if(!val) { sResults.style.display='none'; return; }
 
         const matches = wikiIndex.filter(i => 
-            i.title.toLowerCase().includes(val) || 
-            (i.tags && i.tags.toLowerCase().includes(val))
+            i.title.toLowerCase().includes(val) || (i.tags && i.tags.toLowerCase().includes(val))
         );
 
-        matches.forEach(m => {
-            const a = document.createElement('a');
-            a.href = `#${m.id}`;
-            a.className = 'search-item';
-            a.innerText = m.title;
-            a.onclick = () => { sResults.style.display='none'; sInput.value=''; };
-            sResults.appendChild(a);
-        });
-        sResults.style.display = matches.length ? 'block' : 'none';
+        if (matches.length > 0) {
+            matches.forEach(m => {
+                const a = document.createElement('a');
+                a.href = `#${m.id}`;
+                a.className = 'search-item';
+                a.innerText = m.title;
+                a.onclick = () => { sResults.style.display='none'; sInput.value=''; };
+                sResults.appendChild(a);
+            });
+        } else {
+            // 見つからない場合の表示
+            const div = document.createElement('div');
+            div.className = 'no-result';
+            div.innerText = '該当するページはありません';
+            sResults.appendChild(div);
+        }
+        sResults.style.display = 'block';
     };
 
     window.onhashchange = updateContent;
