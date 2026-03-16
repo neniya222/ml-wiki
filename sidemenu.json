@@ -1,0 +1,15 @@
+[
+  {
+    "category": "メインメニュー",
+    "links": [
+      { "id": "home", "text": "ホーム" },
+      { "id": "rules", "text": "サーバールール" }
+    ]
+  },
+  {
+    "category": "ガイド",
+    "links": [
+      { "id": "commands", "text": "コマンド一覧" }
+    ]
+  }
+]
