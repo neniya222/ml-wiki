@@ -16,10 +16,8 @@
 
     <style>
         :root {
-            /* --- 背景設定（ここを変えると後ろが変わります） --- */
+            /* 背景色の設定（ここを変えると後ろが変わります） */
             --fandom-bg: #191919; 
-            /* 背景を画像にしたい場合は body の background-image を使ってください */
-
             --at-wiki-content-bg: #ffffff;
             --fandom-blue: #00d6d6;
             --sidebar-width: 280px;
@@ -29,7 +27,6 @@
         body {
             margin: 0; font-family: 'Noto Sans JP', sans-serif;
             background-color: var(--fandom-bg);
-            /* background-image: url('画像のURL'); background-attachment: fixed; background-size: cover; */
             color: #333; overflow-x: hidden;
         }
 
@@ -43,28 +40,30 @@
 
         .header-left { display: flex; align-items: center; gap: 15px; }
         .logo { display: flex; align-items: center; gap: 8px; font-weight: bold; color: var(--fandom-blue); text-decoration: none; font-size: 1.1em; }
+        .material-symbols-outlined { vertical-align: middle; }
 
-        /* ハンバーガーボタン（初期は非表示） */
+        /* ハンバーガーメニューボタン */
         #menu-toggle {
             display: none; background: none; border: none; color: white; cursor: pointer; padding: 5px;
         }
 
-        /* 検索 */
+        /* 検索バー */
         .search-container { position: relative; width: 250px; }
         .search-box {
             width: 100%; background: rgba(255,255,255,0.1); border: 1px solid #444;
-            border-radius: 4px; padding: 7px 10px 7px 35px; color: white; outline: none; font-size: 14px;
+            border-radius: 4px; padding: 7px 10px 7px 35px; color: white; outline: none; font-family: inherit;
         }
         #search-results {
             position: absolute; top: 100%; left: 0; width: 100%;
             background: white; box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-            border-radius: 0 0 4px 4px; display: none; z-index: 1001;
+            border-radius: 0 0 4px 4px; display: none; z-index: 2001;
         }
-        .search-item { padding: 12px; border-bottom: 1px solid #eee; text-decoration: none; color: #333; display: block; font-size: 13px; }
-        .no-result { padding: 12px; color: #999; text-align: center; font-size: 12px; }
+        .search-item { padding: 12px; border-bottom: 1px solid #eee; text-decoration: none; color: #333; display: block; font-size: 0.9em; }
+        .search-item:hover { background: #f0f2f5; }
+        .no-result { padding: 12px; color: #999; text-align: center; font-size: 0.8em; }
 
-        /* レイアウト */
-        .wrapper { display: flex; max-width: 1440px; margin: 0 auto; position: relative; }
+        /* レイアウト構成 */
+        .wrapper { display: flex; max-width: 1440px; margin: 0 auto; min-height: calc(100vh - var(--header-height)); }
 
         /* サイドバー */
         nav {
@@ -74,55 +73,59 @@
         }
         .nav-content { flex-grow: 1; }
         nav h3 { font-size: 0.8em; color: #888; border-bottom: 1px solid #eee; margin: 25px 0 10px 0; display: flex; align-items: center; gap: 6px; }
+        nav h3:first-child { margin-top: 0; }
         nav ul { list-style: none; padding: 0; margin: 0; }
-        nav li a { text-decoration: none; color: #0066c0; display: block; padding: 8px 10px; font-size: 0.9em; }
+        nav li a { text-decoration: none; color: #0066c0; display: block; padding: 8px 10px; font-size: 0.9em; border-radius: 4px; }
+        nav li a:hover { background: #eef9f9; }
 
         /* 広告枠 */
         .ad-space { margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px; }
         .ad-label { font-size: 10px; color: #bbb; margin-bottom: 10px; display: block; }
 
         /* メインコンテンツ */
-        main { flex: 1; background: var(--at-wiki-content-bg); padding: 40px; min-width: 0; min-height: 100vh; }
+        main { flex: 1; background: var(--at-wiki-content-bg); padding: 40px 60px; min-width: 0; }
         #wiki-view h1 { font-size: 2.2em; border-bottom: 4px solid #333; padding-bottom: 10px; margin-top: 0; }
         #wiki-view h2 { border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-top: 35px; border-left: 8px solid var(--fandom-blue); padding-left: 15px; }
 
-        /* スマホ対応のスタイル切り替え */
+        pre { background: #1e1e1e; padding: 20px; border-radius: 8px; overflow-x: auto; }
+        code { font-family: 'Consolas', monospace; background: #f4f4f4; padding: 2px 4px; border-radius: 4px; color: #d63384; }
+        pre code { background: none; color: inherit; padding: 0; }
+
+        /* スマホ用レスポンシブ設定 */
         @media (max-width: 900px) {
-            #menu-toggle { display: block; } /* 三本線を表示 */
-            
+            #menu-toggle { display: block; }
             nav {
                 position: fixed; top: var(--header-height); left: 0;
                 height: calc(100vh - var(--header-height));
-                z-index: 1500; transform: translateX(-100%); /* 画面外に隠す */
+                z-index: 1500; transform: translateX(-100%);
                 box-shadow: 5px 0 15px rgba(0,0,0,0.3);
             }
-            nav.open { transform: translateX(0); } /* スライドして表示 */
-
-            main { padding: 20px; }
-            .search-container { width: 150px; }
+            nav.open { transform: translateX(0); }
+            main { padding: 30px 20px; }
+            .search-container { width: 140px; }
         }
 
-        /* 画面が暗くなるオーバーレイ */
         #overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.5); z-index: 1400;
         }
         #overlay.show { display: block; }
+
+        /* 404表示 */
+        .error-container { text-align: center; padding: 60px 20px; color: #666; }
+        .big-icon { font-size: 5rem; color: #ffcc00; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="header-left">
-        <button id="menu-toggle">
-            <span class="material-symbols-outlined">menu</span>
-        </button>
+        <button id="menu-toggle"><span class="material-symbols-outlined">menu</span></button>
         <a href="#home" class="logo">
             <span class="material-symbols-outlined">shield</span>
             <span>SERVER WIKI</span>
         </a>
     </div>
-    
     <div class="search-container">
         <span class="material-symbols-outlined" style="position:absolute; left:8px; top:50%; transform:translateY(-50%); color:#888; font-size:1.2rem;">search</span>
         <input type="text" id="search-input" class="search-box" placeholder="検索...">
@@ -135,14 +138,11 @@
 <div class="wrapper">
     <nav id="sidebar">
         <div id="sidebar-nav" class="nav-content">
-            <p>Loading...</p>
+            <p style="font-size:0.8em; color:#999;">Loading Menu...</p>
         </div>
-
         <div class="ad-space">
-            <span class="ad-label">広告</span>
-            <!-- admax -->
+            <span class="ad-label">ADVERTISEMENT</span>
             <script src="https://adm.shinobi.jp/o/c68c880288e59ed7ade0e94d250be6c9"></script>
-            <!-- admax -->
             </div>
     </nav>
 
@@ -159,7 +159,6 @@
     const overlay = document.getElementById('overlay');
     const menuToggle = document.getElementById('menu-toggle');
 
-    // スマホメニューの開閉
     function toggleMenu() {
         sidebar.classList.toggle('open');
         overlay.classList.toggle('show');
@@ -175,12 +174,12 @@
             const resMenu = await fetch('./sidemenu.json');
             const menuData = await resMenu.json();
             
-            const navContent = document.getElementById('sidebar-nav');
-            navContent.innerHTML = ''; 
+            const nav = document.getElementById('sidebar-nav');
+            nav.innerHTML = ''; 
             menuData.forEach(section => {
                 const h3 = document.createElement('h3');
                 h3.innerHTML = `<span class="material-symbols-outlined">list_alt</span> ${section.category}`;
-                navContent.appendChild(h3);
+                nav.appendChild(h3);
                 const ul = document.createElement('ul');
                 section.links.forEach(link => {
                     const li = document.createElement('li');
@@ -188,35 +187,54 @@
                     li.onclick = () => { if(window.innerWidth <= 900) toggleMenu(); };
                     ul.appendChild(li);
                 });
-                navContent.appendChild(ul);
+                nav.appendChild(ul);
             });
             updateContent(); 
-        } catch (e) { updateContent(); }
+        } catch (e) { console.error(e); updateContent(); }
     }
 
     async function updateContent() {
         const view = document.getElementById('wiki-view');
         const hash = window.location.hash.replace('#', '') || 'home';
-        
+        view.innerHTML = '<p>読み込み中...</p>';
+
         try {
             const response = await fetch(`./pages/${hash}.md`);
-            if (!response.ok) throw new Error();
-            let text = await response.text();
+            
+            // 強力な404/HTML化け対策
+            if (!response.ok) throw new Error('NOT_FOUND');
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("text/html")) throw new Error('NOT_MD');
 
-            if (text.startsWith("TITLE:")) {
-                const firstLine = text.split('\n')[0];
+            let text = await response.text();
+            const trimmed = text.trim();
+            // 中身がHTMLコードっぽかったらエラーにする
+            if (trimmed.startsWith('<') || trimmed.toLowerCase().includes('<html')) throw new Error('INVALID_CONTENT');
+
+            // TITLE: 処理
+            if (trimmed.startsWith("TITLE:")) {
+                const firstLine = trimmed.split('\n')[0];
                 document.title = firstLine.replace("TITLE:", "").trim();
-                text = text.replace(firstLine, "").trim();
+                text = trimmed.replace(firstLine, "").trim();
             }
 
             view.innerHTML = marked.parse(text);
             document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
             window.scrollTo(0, 0);
+
         } catch (e) {
-            view.innerHTML = `<h1>404</h1><p>見つかりません</p>`;
+            view.innerHTML = `
+                <div class="error-container">
+                    <span class="material-symbols-outlined big-icon">warning</span>
+                    <h1>404 Not Found</h1>
+                    <p>ページ「${hash}」は見つかりませんでした。</p>
+                    <a href="#home" style="color:var(--fandom-blue); text-decoration:none; font-weight:bold;">ホームに戻る</a>
+                </div>`;
+            document.title = "404 Not Found";
         }
     }
 
+    // 検索
     const sInput = document.getElementById('search-input');
     const sResults = document.getElementById('search-results');
     sInput.oninput = () => {
