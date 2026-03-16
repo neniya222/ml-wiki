@@ -11,12 +11,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-        /* --- デザイン（CSS）パート --- */
+        /* --- デザイン設定 --- */
         :root {
-            --sidebar-width: 260px;
+            --sidebar-width: 240px;
             --fandom-blue: #00d6d6;
             --at-wiki-bg: #f0f2f5;
-            --header-color: #1e2328;
+            --header-bg: #1e2328;
+            --link-color: #0066c0;
         }
 
         body {
@@ -30,13 +31,13 @@
 
         /* ヘッダー */
         header {
-            height: 60px;
-            background: var(--header-color);
+            height: 50px;
+            background: var(--header-bg);
             color: white;
             display: flex;
             align-items: center;
             padding: 0 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -44,46 +45,67 @@
 
         .container {
             display: flex;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             width: 100%;
-            min-height: calc(100vh - 60px);
+            min-height: calc(100vh - 50px);
         }
 
-        /* サイドバー（アットウィキ風） */
+        /* サイドバー (アットウィキ風) */
         nav {
             width: var(--sidebar-width);
             background: #fff;
             padding: 20px;
             border-right: 1px solid #ccc;
+            flex-shrink: 0;
         }
 
-        nav h3 { font-size: 1.1em; border-left: 4px solid var(--fandom-blue); padding-left: 10px; margin-top: 20px; }
-        nav ul { list-style: none; padding: 0; }
-        nav li a { text-decoration: none; color: #0066c0; display: block; padding: 8px 0; border-bottom: 1px solid #eee; }
-        nav li a:hover { background-color: #f9f9f9; text-decoration: none; padding-left: 5px; transition: 0.2s; }
+        nav h3 { 
+            font-size: 0.95em; 
+            border-left: 5px solid var(--fandom-blue); 
+            padding-left: 10px; 
+            margin-top: 25px;
+            color: #555;
+        }
+        
+        nav ul { list-style: none; padding: 0; margin: 10px 0; }
+        nav li a { 
+            text-decoration: none; 
+            color: var(--link-color); 
+            display: block; 
+            padding: 6px 0; 
+            border-bottom: 1px dashed #eee;
+            font-size: 0.9em;
+        }
+        nav li a:hover { background-color: #f9f9f9; padding-left: 4px; transition: 0.2s; }
 
-        /* メインコンテンツ（Fandom風） */
+        /* メインエリア (Fandom風) */
         main {
             flex: 1;
             background: #fff;
             margin: 20px;
             padding: 40px;
-            border-radius: 4px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            line-height: 1.8;
-            min-width: 0; /* 折り返し対策 */
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            line-height: 1.7;
+            min-width: 0;
         }
 
-        /* Markdown装飾 */
-        h1 { border-bottom: 3px solid var(--fandom-blue); padding-bottom: 5px; margin-top: 0; }
-        h2 { border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 30px; }
-        code { background: #f3f3f3; padding: 2px 5px; border-radius: 3px; font-family: 'Courier New', Courier, monospace; color: #d63384; }
-        pre { background: #1e1e1e; padding: 15px; border-radius: 8px; overflow-x: auto; }
-        pre code { background: none; color: #fff; padding: 0; }
-        img { max-width: 100%; height: auto; border: 1px solid #ddd; }
+        /* Markdown表示のカスタマイズ */
+        #wiki-view h1 { border-bottom: 3px solid var(--fandom-blue); padding-bottom: 8px; margin-top: 0; font-size: 2em; }
+        #wiki-view h2 { border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-top: 1.5em; }
+        #wiki-view blockquote { border-left: 4px solid #ccc; padding-left: 15px; color: #666; font-style: italic; margin: 1em 0; }
+        
+        /* コードブロック */
+        pre { background: #1e1e1e; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        code { font-family: 'Consolas', 'Monaco', monospace; background: #f4f4f4; padding: 2px 4px; border-radius: 3px; color: #e83e8c; }
+        pre code { background: none; color: inherit; padding: 0; }
 
-        /* スマホ対応 */
+        /* エラー画面のデザイン */
+        .error-container { text-align: center; padding: 60px 20px; }
+        .error-container i { font-size: 5rem; color: #ffcc00; margin-bottom: 20px; }
+
+        /* レスポンシブ */
         @media (max-width: 768px) {
             .container { flex-direction: column; }
             nav { width: 100%; border-right: none; box-sizing: border-box; }
@@ -94,7 +116,9 @@
 <body>
 
 <header>
-    <h2><i class="fas fa-cube"></i> Minecraft Server Wiki</h2>
+    <div style="font-weight: bold; font-size: 1.2em;">
+        <i class="fas fa-database"></i> Server Wiki
+    </div>
 </header>
 
 <div class="container">
@@ -102,72 +126,81 @@
         <h3>メインメニュー</h3>
         <ul>
             <li><a href="#home"><i class="fas fa-home"></i> ホーム</a></li>
-            <li><a href="#rules"><i class="fas fa-book"></i> サーバー規約</a></li>
-            <li><a href="#commands"><i class="fas fa-terminal"></i> コマンド一覧</a></li>
+            <li><a href="#rules"><i class="fas fa-gavel"></i> サーバー規約</a></li>
+            <li><a href="#commands"><i class="fas fa-code"></i> コマンド一覧</a></li>
         </ul>
-        <h3>システム解説</h3>
+        <h3>データベース</h3>
         <ul>
-            <li><a href="#jobs"><i class="fas fa-tools"></i> 職業システム</a></li>
-            <li><a href="#shop"><i class="fas fa-shopping-cart"></i> ショップ</a></li>
+            <li><a href="#items"><i class="fas fa-sword"></i> アイテム一覧</a></li>
+            <li><a href="#world"><i class="fas fa-map-marked-alt"></i> ワールド紹介</a></li>
         </ul>
     </nav>
 
     <main id="wiki-view">
-        <p>読み込み中...</p>
+        <p><i class="fas fa-spinner fa-spin"></i> 準備中...</p>
     </main>
 </div>
 
 <script>
-    /* --- プログラム（JavaScript）パート --- */
-
     async function updateContent() {
         const view = document.getElementById('wiki-view');
-        // URLの#以降を取得。なければhome。
-        const hash = window.location.hash.replace('#', '') || 'home';
+        const rawHash = window.location.hash.replace('#', '');
+        const hash = rawHash || 'home';
         
-        // 読み込み中の表示
-        view.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> 読み込み中...</p>';
+        view.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> ページを読み込み中...</p>';
 
         try {
-            // 外部のMarkdownファイルを読みに行く
+            // ファイルを取得
             const response = await fetch(`./pages/${hash}.md`);
 
-            // ファイルがない(404)などのエラーチェック
+            // ステータスチェック (404対策)
             if (!response.ok) {
-                throw new Error('Page not found');
+                throw new Error('NOT_FOUND');
+            }
+
+            // コンテンツタイプ確認 (HTMLが返ってきたらエラーにする)
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("text/html")) {
+                throw new Error('FILE_IS_HTML_NOT_MD');
             }
 
             const md = await response.text();
-            
-            // MarkdownをHTMLに変換して表示
+
+            // 念のため中身がHTMLタグで始まっていないか最終チェック
+            if (md.trim().startsWith('<!DOCTYPE') || md.trim().startsWith('<html')) {
+                throw new Error('INVALID_CONTENT');
+            }
+
+            // MarkdownをHTMLに変換
             view.innerHTML = marked.parse(md);
             
-            // マイクラコマンド等の色付けを適用
-            document.querySelectorAll('pre code').forEach((el) => {
-                hljs.highlightElement(el);
+            // コードハイライト適用
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
             });
             
-            // ページの一番上へスクロール
+            // ページ最上部へ
             window.scrollTo(0, 0);
 
         } catch (e) {
-            // ページが見つからない時のエラー画面
+            // エラー時の表示
+            console.error("Wiki Error:", e.message);
             view.innerHTML = `
-                <div style="text-align:center; padding: 50px;">
-                    <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #ffcc00;"></i>
-                    <h1 style="border:none;">404 Not Found</h1>
-                    <p>「<strong>${hash}</strong>」というページはまだ存在しないようです。</p>
-                    <p>ファイルパス: <code>/pages/${hash}.md</code> を作成してください。</p>
+                <div class="error-container">
+                    <i class="fas fa-question-circle"></i>
+                    <h1>404 Not Found</h1>
+                    <p>申し訳ありません。お探しのページ「<strong>${hash}</strong>」は見つかりませんでした。</p>
+                    <p style="color: #999; font-size: 0.8em;">(Reason: ${e.message})</p>
                     <br>
-                    <a href="#home" style="color: var(--fandom-blue); text-decoration: none; font-weight: bold;">
-                        <i class="fas fa-arrow-left"></i> ホームに戻る
+                    <a href="#home" style="color: var(--fandom-blue); text-decoration: none;">
+                        <i class="fas fa-chevron-left"></i> ホームへ戻る
                     </a>
                 </div>
             `;
         }
     }
 
-    // URLが変わった時と、最初にページを開いた時に実行
+    // イベントリスナー
     window.addEventListener('hashchange', updateContent);
     window.addEventListener('DOMContentLoaded', updateContent);
 </script>
