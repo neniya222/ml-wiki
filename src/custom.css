@@ -1,67 +1,68 @@
-/* --- 共通カラー設定 --- */
+/* --- 1. カラー変数の設定（モード対応） --- */
 :root {
-  /* Fandom風のメインカラー：鮮やかな青、またはオレンジ */
-  --sl-color-accent-low: #e1f5fe;
-  --sl-color-accent: #00aaff;     /* ここを好きなメインカラーに */
-  --sl-color-accent-high: #0077cc;
-  
-  /* 背景をアットウィキ風に少し落ち着かせる */
-  --sl-color-bg: #f4f6f8;         /* 全体の背景（薄いグレー） */
-  --sl-color-bg-nav: #ffffff;     /* サイドバーの背景（白） */
-  --sl-color-text: #333333;       /* 文字色 */
+  /* ライトモード時の色 */
+  --sl-color-accent: #00aaff;     /* メインカラー */
+  --sl-color-bg: #f4f6f8;         /* 全体背景 */
+  --sl-color-as-bg: #ffffff;      /* 記事の箱の色 */
+  --sl-color-text-main: #222222;  /* 文字色 */
 }
 
-/* --- 記事エリアをアットウィキ風に「白箱」にする --- */
+/* ダークモード時の色を微調整（文字が消えないようにする） */
+:root[data-theme='dark'] {
+  --sl-color-bg: #1a1c20;         /* 全体背景（暗） */
+  --sl-color-as-bg: #24272e;      /* 記事の箱（少し明るい黒） */
+  --sl-color-text-main: #eeeeee;  /* 文字色（白っぽく） */
+}
+
+/* --- 2. 記事エリアの調整 --- */
 .main-frame {
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;      /* アットウィキ風の細い境界線 */
+  background-color: var(--sl-color-as-bg) !important;
+  color: var(--sl-color-text-main) !important;
+  border: 1px solid rgba(128, 128, 128, 0.2);
   border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  margin-top: 1rem;
   padding: 2rem !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* --- サイドバー（メニュー）の調整 --- */
-.sidebar-pane {
-  border-right: 1px solid #d0d7de !important;
-  background-color: #fcfcfc !important;
+/* --- 3. アイコン（鎖マークなど）のズレ・重なり修正 --- */
+/* リンクアイコンやアンカー（鎖）が文字に重なるのを防ぐ */
+.content a svg {
+  vertical-align: middle;
+  margin-right: 0.2em;
 }
 
-/* メニューの項目にホバーした時の色 */
-.sidebar-content a:hover {
-  background-color: var(--sl-color-accent-low) !important;
-  color: var(--sl-color-accent-high) !important;
+/* 見出しの横にあるリンクアイコンの調整 */
+h2 a, h3 a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
 }
 
-/* --- 見出しを「攻略サイト風」にする --- */
+/* --- 4. 見出しのデザイン修正（バグ防止） --- */
 h2 {
-  border-left: 6px solid var(--sl-color-accent); /* 左側に太い棒 */
-  padding: 0.5rem 1rem;
-  background: #f8f9fa;                           /* 見出しの背景を薄いグレーに */
-  border-bottom: 1px solid #d0d7de;
-  font-weight: bold;
+  border-left: 6px solid var(--sl-color-accent);
+  padding: 0.5rem 1rem !important;
+  background: rgba(128, 128, 128, 0.05); /* 背景を透明度付きにしてモード対応 */
+  margin-top: 2rem !important;
+  color: var(--sl-color-text-main);
 }
 
-h3 {
-  border-bottom: 2px solid var(--sl-color-accent); /* 下線を引く */
-  padding-bottom: 0.2rem;
-  margin-top: 2rem;
+h2::before {
+  content: none !important; /* 以前の「■」が邪魔なら消す */
 }
 
-/* --- 表（テーブル）をWiki風に見やすく --- */
+/* --- 5. テーブルのモード対応 --- */
 table {
   width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
+  background-color: transparent;
 }
 
 th {
-  background-color: #f0f2f5; /* ヘッダーをグレーに */
-  border: 1px solid #d0d7de;
-  font-weight: bold;
+  background-color: rgba(128, 128, 128, 0.1);
+  color: var(--sl-color-text-main);
 }
 
 td {
-  border: 1px solid #d0d7de;
-  padding: 8px;
+  border: 1px solid rgba(128, 128, 128, 0.2);
 }
