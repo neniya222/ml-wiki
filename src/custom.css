@@ -1,68 +1,40 @@
-/* --- 1. カラー変数の設定（モード対応） --- */
-:root {
-  /* ライトモード時の色 */
-  --sl-color-accent: #00aaff;     /* メインカラー */
-  --sl-color-bg: #f4f6f8;         /* 全体背景 */
-  --sl-color-as-bg: #ffffff;      /* 記事の箱の色 */
-  --sl-color-text-main: #222222;  /* 文字色 */
-}
+/* --- 見出しのリンクアイコン（鎖マーク）の重なりを修正 --- */
 
-/* ダークモード時の色を微調整（文字が消えないようにする） */
-:root[data-theme='dark'] {
-  --sl-color-bg: #1a1c20;         /* 全体背景（暗） */
-  --sl-color-as-bg: #24272e;      /* 記事の箱（少し明るい黒） */
-  --sl-color-text-main: #eeeeee;  /* 文字色（白っぽく） */
-}
-
-/* --- 2. 記事エリアの調整 --- */
-.main-frame {
-  background-color: var(--sl-color-as-bg) !important;
-  color: var(--sl-color-text-main) !important;
-  border: 1px solid rgba(128, 128, 128, 0.2);
-  border-radius: 6px;
-  padding: 2rem !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-/* --- 3. アイコン（鎖マークなど）のズレ・重なり修正 --- */
-/* リンクアイコンやアンカー（鎖）が文字に重なるのを防ぐ */
-.content a svg {
-  vertical-align: middle;
-  margin-right: 0.2em;
-}
-
-/* 見出しの横にあるリンクアイコンの調整 */
-h2 a, h3 a {
-  display: inline-flex;
+/* 見出し全体のレイアウトをリセットして整列させる */
+.content :is(h1, h2, h3, h4, h5) {
+  display: flex;
   align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
+  flex-direction: row-reverse; /* アイコンを左、文字を右に並べる */
+  justify-content: flex-end;
+  gap: 0.5rem; /* アイコンと文字の間の隙間 */
 }
 
-/* --- 4. 見出しのデザイン修正（バグ防止） --- */
+/* 鎖アイコン自体の位置固定を解除する */
+.content :is(h1, h2, h3, h4, h5) a[aria-hidden="true"] {
+  position: static !important;
+  display: inline-flex;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: var(--sl-color-accent) !important;
+}
+
+/* アイコン内のSVGサイズを微調整 */
+.content :is(h1, h2, h3, h4, h5) a svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  opacity: 0.6; /* 控えめな薄さに（マウスを乗せると濃くなる設定も可） */
+}
+
+/* マウスを乗せた時だけ鎖アイコンをはっきりさせる（お好みで） */
+.content :is(h1, h2, h3, h4, h5):hover a svg {
+  opacity: 1;
+}
+
+/* 前回のh2のデザイン（左線など）を維持しつつ調整 */
 h2 {
   border-left: 6px solid var(--sl-color-accent);
   padding: 0.5rem 1rem !important;
-  background: rgba(128, 128, 128, 0.05); /* 背景を透明度付きにしてモード対応 */
+  background: rgba(128, 128, 128, 0.05);
   margin-top: 2rem !important;
-  color: var(--sl-color-text-main);
-}
-
-h2::before {
-  content: none !important; /* 以前の「■」が邪魔なら消す */
-}
-
-/* --- 5. テーブルのモード対応 --- */
-table {
-  width: 100%;
-  background-color: transparent;
-}
-
-th {
-  background-color: rgba(128, 128, 128, 0.1);
-  color: var(--sl-color-text-main);
-}
-
-td {
-  border: 1px solid rgba(128, 128, 128, 0.2);
+  width: 100%; /* 横幅いっぱいにする */
 }
