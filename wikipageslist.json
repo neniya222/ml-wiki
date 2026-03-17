@@ -1,5 +1,0 @@
-[
-  { "id": "home", "title": "ホーム", "tags": "トップ 案内" },
-  { "id": "rules", "title": "サーバールール", "tags": "規約 禁止事項 ban" },
-  { "id": "commands", "title": "コマンド一覧", "tags": "cmd 使い方 基礎" }
-]
