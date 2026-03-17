@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading... | MiLight Server 公式Wiki</title>
+    <title>MiLight Server 公式Wiki</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,98 +16,112 @@
 
     <style>
         :root {
-            --fandom-bg: #191919; 
-            --at-wiki-content-bg: #ffffff;
-            --fandom-blue: #00d6d6;
-            --sidebar-width: 280px;
-            --header-height: 60px;
+            --header-bg: #1e1e1e; /* Fandom Black */
+            --page-bg: #f0f2f5;   /* Light Gray */
+            --content-bg: #ffffff;
+            --accent-blue: #00d6d6;
+            --sidebar-width: 300px;
+            --header-height: 64px;
+            --text-main: #202122;
         }
 
         body {
             margin: 0; font-family: 'Noto Sans JP', sans-serif;
-            background-color: var(--fandom-bg); color: #333; overflow-x: hidden;
+            background-color: var(--page-bg); color: var(--text-main);
+            line-height: 1.6;
         }
 
-        /* ヘッダーの改善（スマホ対応強化） */
+        /* --- ヘッダー領域 --- */
         header {
-            height: var(--header-height); background: #2a2f35; color: white;
+            height: var(--header-height); background: var(--header-bg); color: white;
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 15px; position: sticky; top: 0; z-index: 2000;
-            border-bottom: 3px solid var(--fandom-blue);
-            box-sizing: border-box;
+            padding: 0 20px; position: sticky; top: 0; z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        .header-left { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-        .logo { display: flex; align-items: center; gap: 8px; font-weight: bold; color: var(--fandom-blue); text-decoration: none; font-size: 1.1em; }
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .logo { display: flex; align-items: center; gap: 10px; font-weight: bold; color: var(--accent-blue); text-decoration: none; font-size: 1.2rem; letter-spacing: 1px; }
 
         #menu-toggle {
-            background: none; border: none; color: white; cursor: pointer; padding: 8px;
-            display: none; transition: 0.2s;
+            background: none; border: none; color: white; cursor: pointer; display: none;
+            padding: 8px; border-radius: 4px;
         }
+        #menu-toggle:hover { background: rgba(255,255,255,0.1); }
 
-        /* 検索バー（スマホではみ出さないよう改善） */
-        .search-container { position: relative; width: 250px; flex-shrink: 1; }
+        .search-container { position: relative; width: 300px; }
         .search-box {
-            width: 100%; background: rgba(255,255,255,0.1); border: 1px solid #444;
-            border-radius: 6px; padding: 8px 10px 8px 35px; color: white; outline: none; font-family: inherit;
-            font-size: 14px; box-sizing: border-box;
+            width: 100%; background: #333; border: 1px solid #444; border-radius: 20px;
+            padding: 8px 15px 8px 40px; color: white; outline: none; transition: 0.3s;
         }
+        .search-box:focus { border-color: var(--accent-blue); background: #444; }
+        
         #search-results {
-            position: absolute; top: 100%; right: 0; width: 100%; min-width: 200px;
-            background: white; box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-            border-radius: 0 0 4px 4px; display: none; z-index: 2001;
+            position: absolute; top: calc(100% + 5px); right: 0; width: 100%;
+            background: white; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            display: none; z-index: 2001; overflow: hidden;
         }
-        .search-item { padding: 12px; border-bottom: 1px solid #eee; text-decoration: none; color: #333; display: block; font-size: 0.9em; }
+        .search-item { padding: 12px 15px; border-bottom: 1px solid #eee; text-decoration: none; color: #333; display: block; font-size: 0.9rem; }
+        .search-item:hover { background: #f8f9fa; color: var(--accent-blue); }
 
-        /* レイアウト */
-        .wrapper { display: flex; max-width: 1440px; margin: 0 auto; min-height: calc(100vh - var(--header-height)); }
+        /* --- メインレイアウト --- */
+        .wrapper { display: flex; max-width: 1400px; margin: 0 auto; gap: 20px; padding: 20px; box-sizing: border-box; }
 
-        /* サイドバー */
+        /* サイドバー（Fandom風） */
         nav {
-            width: var(--sidebar-width); background: #fff; padding: 20px;
-            border-right: 1px solid #ddd; flex-shrink: 0; display: flex; flex-direction: column;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: var(--sidebar-width); flex-shrink: 0;
+            display: flex; flex-direction: column; gap: 20px;
         }
-        nav h3 { font-size: 0.8em; color: #888; border-bottom: 1px solid #eee; margin: 25px 0 10px 0; display: flex; align-items: center; gap: 6px; }
+        .nav-card {
+            background: white; border-radius: 8px; padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #ddd;
+        }
+        nav h3 {
+            font-size: 0.85rem; color: #666; text-transform: uppercase;
+            margin: 0 0 15px 0; border-bottom: 2px solid var(--accent-blue);
+            padding-bottom: 5px; display: flex; align-items: center; gap: 8px;
+        }
         nav ul { list-style: none; padding: 0; margin: 0; }
-        nav li a { 
-            text-decoration: none; color: #0066c0; display: block; padding: 10px 12px; 
-            font-size: 0.95em; border-radius: 6px; margin-bottom: 2px;
+        nav li a {
+            text-decoration: none; color: #333; display: block; padding: 8px 10px;
+            font-size: 0.95rem; border-radius: 4px; transition: 0.2s;
         }
-        nav li a:hover { background: #eef9f9; color: #004a8d; }
+        nav li a:hover { background: #f0fdfd; color: var(--accent-blue); padding-left: 15px; }
 
-        /* 広告枠（上下・サイドの3か所） */
-        .ad-box { text-align: center; margin: 20px 0; padding: 10px; background: #fafafa; border: 1px solid #eee; }
-        .ad-label { font-size: 10px; color: #ccc; display: block; margin-bottom: 5px; }
+        /* メインコンテンツ（アットウィキ風） */
+        main {
+            flex: 1; background: var(--content-bg); border-radius: 8px;
+            padding: 40px; min-width: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
+        }
 
-        /* メインコンテンツ */
-        main { flex: 1; background: var(--at-wiki-content-bg); padding: 40px 60px; min-width: 0; box-sizing: border-box; }
-        #wiki-view h1 { font-size: 2.2em; border-bottom: 4px solid #333; padding-bottom: 10px; margin-top: 0; }
-        #wiki-view h2 { border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-top: 35px; border-left: 8px solid var(--fandom-blue); padding-left: 15px; }
+        #wiki-view h1 { font-size: 2.4rem; color: #111; border-bottom: 5px solid #222; padding-bottom: 10px; margin-top: 0; }
+        #wiki-view h2 { border-bottom: 2px solid #eee; padding-bottom: 8px; margin-top: 40px; border-left: 10px solid var(--accent-blue); padding-left: 15px; background: #fafafa; }
 
-        /* スマホ向けレスポンシブ */
-        @media (max-width: 900px) {
+        /* 広告枠 */
+        .ad-box { text-align: center; margin: 25px 0; background: #f9f9f9; border: 1px dashed #ccc; padding: 15px; border-radius: 8px; }
+        .ad-label { font-size: 11px; color: #aaa; margin-bottom: 10px; display: block; }
+
+        /* --- モバイル対応 --- */
+        @media (max-width: 1000px) {
             #menu-toggle { display: block; }
-            .logo span:not(.material-symbols-outlined) { display: none; } /* スマホではアイコンのみ */
-            
+            .wrapper { flex-direction: column; padding: 10px; }
             nav {
-                position: fixed; top: var(--header-height); left: 0;
-                height: calc(100vh - var(--header-height));
-                z-index: 1500; transform: translateX(-100%);
-                width: 85%; max-width: 320px;
+                position: fixed; top: var(--header-height); left: 0; width: 280px;
+                height: calc(100vh - var(--header-height)); background: white;
+                z-index: 3000; transform: translateX(-100%); transition: 0.3s ease;
+                padding: 20px; box-sizing: border-box; overflow-y: auto;
             }
-            nav.open { transform: translateX(0); }
-            main { padding: 25px 15px; }
+            nav.open { transform: translateX(0); box-shadow: 5px 0 15px rgba(0,0,0,0.2); }
             .search-container { width: 180px; }
+            main { padding: 25px 15px; }
+            .logo span:last-child { display: none; } /* スマホではWiki名を隠す */
         }
 
-        #overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); z-index: 1400; backdrop-filter: blur(2px);
-        }
+        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2500; }
         #overlay.show { display: block; }
 
-        .error-container { text-align: center; padding: 60px 20px; }
+        .error-container { text-align: center; padding: 80px 20px; }
+        .error-container h1 { font-size: 5rem; margin: 0; color: #ddd; }
     </style>
 </head>
 <body>
@@ -115,13 +129,13 @@
 <header>
     <div class="header-left">
         <button id="menu-toggle"><span class="material-symbols-outlined">menu</span></button>
-        <a href="index.html#home" class="logo" onclick="location.href='index.html#home'; location.reload();">
-            <span class="material-symbols-outlined">shield</span>
-            <span>SERVER WIKI</span>
+        <a href="#home" class="logo" onclick="goHome()">
+            <span class="material-symbols-outlined" style="font-size: 2rem;">shield</span>
+            <span>MiLight Server <span>公式Wiki</span></span>
         </a>
     </div>
     <div class="search-container">
-        <span class="material-symbols-outlined" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); color:#888; font-size:1.1rem;">search</span>
+        <span class="material-symbols-outlined" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#888;">search</span>
         <input type="text" id="search-input" class="search-box" placeholder="Wiki内を検索...">
         <div id="search-results"></div>
     </div>
@@ -131,31 +145,27 @@
 
 <div class="wrapper">
     <nav id="sidebar">
-        <div id="sidebar-nav" style="flex-grow:1;"></div>
+        <div class="nav-card">
+            <div id="sidebar-nav"></div>
+        </div>
         
         <div class="ad-box">
-            <span class="ad-label">広告</span>
-            <!-- admax -->
-            <script src="https://adm.shinobi.jp/o/daba29522a811c8f83b60fcc4e941252"></script>
-            <!-- admax -->
+            <span class="ad-label">公式</span>
+            <script src="https://adm.shinobi.jp/o/ae858bf51ea81ba7e5d8c491dbc3d627"></script>
         </div>
     </nav>
 
     <main>
         <div class="ad-box">
             <span class="ad-label">広告</span>
-            <!-- admax -->
-            <script src="https://adm.shinobi.jp/o/ae858bf51ea81ba7e5d8c491dbc3d627"></script>
-            <!-- admax -->
+            <script src="https://adm.shinobi.jp/o/daba29522a811c8f83b60fcc4e941252"></script>
         </div>
 
         <article id="wiki-view">読み込み中...</article>
 
-        <div class="ad-box" style="margin-top: 40px;">
+        <div class="ad-box" style="margin-top: 60px;">
             <span class="ad-label">広告</span>
-            <!-- admax -->
             <script src="https://adm.shinobi.jp/o/c68c880288e59ed7ade0e94d250be6c9"></script>
-            <!-- admax -->
         </div>
     </main>
 </div>
@@ -165,7 +175,6 @@
     const overlay = document.getElementById('overlay');
     const menuToggle = document.getElementById('menu-toggle');
 
-    // メニュー開閉
     function toggleMenu() {
         sidebar.classList.toggle('open');
         overlay.classList.toggle('show');
@@ -173,67 +182,77 @@
     menuToggle.onclick = toggleMenu;
     overlay.onclick = toggleMenu;
 
-    // 初期化
+    function goHome() {
+        window.location.hash = "home";
+        setTimeout(() => location.reload(), 10);
+    }
+
     async function initWiki() {
         const hash = window.location.hash.replace('#', '') || 'home';
         
         try {
-            // メニューとインデックスを取得（キャッシュを避けるためタイムスタンプ付与）
             const [resIndex, resMenu] = await Promise.all([
-                fetch(`./wikipageslist.json?t=${Date.now()}`).then(r => r.json()),
-                fetch(`./sidemenu.json?t=${Date.now()}`).then(r => r.json())
+                fetch(`./wikipageslist.json?v=${Date.now()}`).then(r => r.json()),
+                fetch(`./sidemenu.json?v=${Date.now()}`).then(r => r.json())
             ]);
 
-            // サイドメニュー生成
             const nav = document.getElementById('sidebar-nav');
             resMenu.forEach(section => {
                 const h3 = document.createElement('h3');
-                h3.innerHTML = `<span class="material-symbols-outlined">list_alt</span> ${section.category}`;
+                h3.innerHTML = `<span class="material-symbols-outlined">explore</span> ${section.category}`;
                 nav.appendChild(h3);
                 const ul = document.createElement('ul');
                 section.links.forEach(link => {
                     const li = document.createElement('li');
-                    // ★重要：location.reload() を入れることで完全再読み込みを実現
                     li.innerHTML = `<a href="#${link.id}" onclick="setTimeout(()=>location.reload(),10)">${link.text}</a>`;
                     ul.appendChild(li);
                 });
                 nav.appendChild(ul);
             });
 
-            // コンテンツ読み込み
             await loadMarkdown(hash);
-
-            // 検索機能のセットアップ
             setupSearch(resIndex);
 
         } catch (e) {
-            console.error(e);
-            document.getElementById('wiki-view').innerHTML = "<h1>Error</h1><p>読み込みに失敗しました。</p>";
+            document.getElementById('wiki-view').innerHTML = "<h1>System Error</h1><p>Wikiデータの読み込みに失敗しました。</p>";
         }
     }
 
     async function loadMarkdown(hash) {
         const view = document.getElementById('wiki-view');
         try {
-            const response = await fetch(`./pages/${hash}.md?t=${Date.now()}`);
-            if (!response.ok) throw new Error();
+            const response = await fetch(`./pages/${hash}.md?v=${Date.now()}`);
             
+            // 【404ガード最強版】
+            if (!response.ok) throw new Error('NOT_FOUND');
+            const type = response.headers.get("content-type");
+            if (type && type.includes("text/html")) throw new Error('ERR_HTML_DETECTED');
+
             let text = await response.text();
-            
-            // TITLE処理
+            if (text.trim().startsWith('<!DOCTYPE') || text.trim().startsWith('<html')) throw new Error('ERR_SOURCE_LEAK');
+
             if (text.trim().startsWith("TITLE:")) {
                 const lines = text.split('\n');
-                document.title = lines[0].replace("TITLE:", "").trim();
+                document.title = lines[0].replace("TITLE:", "").trim() + " | MiLight Server Wiki";
                 text = lines.slice(1).join('\n');
             } else {
-                document.title = hash.toUpperCase() + " | Server Wiki";
+                document.title = "MiLight Server 公式Wiki";
             }
 
             view.innerHTML = marked.parse(text);
             document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+            window.scrollTo(0, 0);
+
         } catch (e) {
-            view.innerHTML = `<div class="error-container"><h1>404</h1><p>ページが見つかりませんでした。</p><a href="index.html#home" onclick="setTimeout(()=>location.reload(),10)">ホームへ戻る</a></div>`;
-            document.title = "404 Not Found";
+            console.error(e);
+            view.innerHTML = `
+                <div class="error-container">
+                    <h1>404</h1>
+                    <h2>ページが見つかりません</h2>
+                    <p>移動または削除された可能性があります。</p>
+                    <a href="#home" onclick="goHome()" style="color:var(--accent-blue); font-weight:bold;">ホームへ戻る</a>
+                </div>`;
+            document.title = "404 Not Found | MiLight Server Wiki";
         }
     }
 
@@ -253,24 +272,18 @@
             if (matches.length > 0) {
                 matches.forEach(m => {
                     const a = document.createElement('a');
-                    a.href = `#${m.id}`;
-                    a.className = 'search-item';
-                    a.innerText = m.title;
-                    // ★検索結果からの移動も完全再読み込み
+                    a.href = `#${m.id}`; a.className = 'search-item'; a.innerText = m.title;
                     a.onclick = () => { setTimeout(()=>location.reload(),10); };
                     sResults.appendChild(a);
                 });
+                sResults.style.display = 'block';
             } else {
-                const div = document.createElement('div');
-                div.style.padding = "10px"; div.style.textAlign = "center"; div.style.color = "#999";
-                div.innerText = "見つかりませんでした";
-                sResults.appendChild(div);
+                sResults.innerHTML = '<div style="padding:15px; color:#999; text-align:center;">該当なし</div>';
+                sResults.style.display = 'block';
             }
-            sResults.style.display = 'block';
         };
     }
 
-    // 起動
     window.onload = initWiki;
 </script>
 </body>
