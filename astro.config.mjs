@@ -30,7 +30,7 @@ export default defineConfig({
 					label: '✨ 独自機能',
 					items: [
 						{ label: '🚀 テレポート機能', link: '/features/tp' },
-						{ label: '🛡️ 土地保護', link: '/features/claims' },
+						{ label: '🛡️ 土地保護のやり方', link: '/features/claims' },
 						{ label: '🏆 スキル機能', link: '/features/skills' },
 					],
 				},
