@@ -32,6 +32,7 @@ export default defineConfig({
 						{ label: '🚀 テレポート機能', link: '/features/tp' },
 						{ label: '🛡️ 土地保護', link: '/features/claims' },
 						{ label: '🏆 スキル機能', link: '/features/skills' },
+						{ label: '🥚 エッグキャッチャー', link: '/features/eggc' },
 					],
 				},
 			],
