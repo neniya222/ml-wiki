@@ -4,16 +4,16 @@ const { type } = Astro.props;
 ---
 
 <div class="ad-safe-container">
-  <p style="font-size: 10px; color: gray; text-align: center; margin: 0;">Ads</p>
+  <p style="font-size: 10px; color: gray; text-align: center; margin: 0;">Ad</p>
   <div class="ad-content">
     {type === 'horizontal' && (
-      <script is:inline src="https://adm.shinobi.jp/o/ae858bf51ea81ba7e5d8c491dbc3d627" defer></script>
+      <script is:inline src="https://adm.shinobi.jp/o/ae858bf51ea81ba7e5d8c491dbc3d627"></script>
     )}
     {type === 'square' && (
-      <script is:inline src="https://adm.shinobi.jp/o/c68c880288e59ed7ade0e94d250be6c9" defer></script>
+      <script is:inline src="https://adm.shinobi.jp/o/c68c880288e59ed7ade0e94d250be6c9"></script>
     )}
     {type === 'vertical' && (
-      <script is:inline src="https://adm.shinobi.jp/o/daba29522a811c8f83b60fcc4e941252" defer></script>
+      <script is:inline src="https://adm.shinobi.jp/o/daba29522a811c8f83b60fcc4e941252"></script>
     )}
   </div>
 </div>
