@@ -28,44 +28,44 @@ hr {
   opacity: 1 !important;
 }
 
-/* --- 3. 見出しデザイン：幅を文字に合わせ、鎖を右横に固定 --- */
+/* --- 3. 見出しデザイン（幅を文字に合わせる ＆ 鎖を右横に） --- */
 
-.sl-markdown-content :is(h1, h2, h3, h4, h5) {
-  display: flex !important;
+.sl-markdown-content h2,
+.sl-markdown-content h3 {
+  display: flex !important;           /* flexで要素を横並びに */
   align-items: center !important;
-  width: fit-content !important; /* 文字の幅に合わせる */
+  width: fit-content !important;       /* 幅を文字＋アイコンに合わせる */
   max-width: 100% !important;
-  gap: 0.5rem !important; /* 文字と鎖の隙間 */
-  flex-direction: row !important; /* 左から右へ並べる */
-}
-
-/* H2: 緑の太棒 + 背景帯 */
-.sl-markdown-content h2 {
-  padding: 0.6rem 1.2rem 0.6rem 1rem !important;
-  margin: 2.5rem 0 1.5rem 0 !important;
+  flex-direction: row !important;      /* 左から順に並べる */
+  justify-content: flex-start !important;
+  gap: 8px !important;                 /* 文字と鎖の隙間 */
+  
+  /* 背景と線の設定 */
   background-color: #f8f9fa !important;
   border-left: 10px solid var(--sl-color-accent) !important;
   border-bottom: 1px solid var(--sl-color-border) !important;
-  font-size: 1.5rem !important;
+  
+  padding: 0.6rem 1.2rem 0.6rem 1rem !important;
+  margin: 2.5rem 0 1.5rem 0 !important;
+  font-weight: bold !important;
 }
 
-:root[data-theme='dark'] .sl-markdown-content h2 {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-}
-
-/* H3: 灰色の線 */
+/* H3は少し細めの棒に */
 .sl-markdown-content h3 {
-  padding: 0.4rem 1rem 0.4rem 0.8rem !important;
-  margin-top: 2rem !important;
   border-left: 5px solid #bdc3c7 !important;
-  border-bottom: 1px solid var(--sl-color-border) !important;
   font-size: 1.25rem !important;
 }
 
-/* 鎖アイコンのスタイル調整 */
+:root[data-theme='dark'] .sl-markdown-content :is(h2, h3) {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* 鎖アイコンの強制右側配置 */
 .sl-markdown-content :is(h1, h2, h3, h4, h5) a[aria-hidden="true"] {
   position: static !important;
   display: inline-flex !important;
+  order: 99 !important;               /* 強制的に一番右（最後）へ */
+  margin: 0 !important;
   color: var(--sl-color-accent) !important;
   opacity: 0.3;
   text-decoration: none !important;
@@ -73,12 +73,6 @@ hr {
 
 .sl-markdown-content :is(h1, h2, h3, h4, h5):hover a[aria-hidden="true"] {
   opacity: 1;
-}
-
-/* 鎖アイコンの中のSVGがずれないように */
-.sl-markdown-content :is(h1, h2, h3, h4, h5) svg {
-  width: 1.2rem !important;
-  height: 1.2rem !important;
 }
 
 /* --- 4. 表 (テーブル) --- */
