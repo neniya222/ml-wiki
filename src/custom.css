@@ -1,24 +1,24 @@
-/* --- 1. 配色：マイクラの土・草・空をイメージした高級感のあるカラー --- */
+/* --- 1. ベース設定：Wikiの密度と配色 --- */
 :root {
-  --sl-font-size-base: 15px;         /* @wikiより少し大きく、読みやすく */
-  --sl-content-width: 85rem;
-  --sl-color-accent: #2e7d32;        /* マイクラの草ブロック風の緑 */
-  --sl-color-bg: #f4f7f6;            /* 少し青みがかった明るいグレー */
+  --sl-font-size-base: 15px;
+  --sl-content-width: 82rem;
+  --sl-color-accent: #2e7d32;        /* マイクラ風の濃い緑 */
+  --sl-color-bg: #f0f2f5;            /* @wiki風グレー */
   --sl-color-as-bg: #ffffff;
-  --sl-color-border: #bdc3c7;        /* パキッとした境界線 */
+  --sl-color-border: #a2a9b1;        /* Wiki標準の境界線 */
 }
 
-/* リンク：@wiki伝統の青。マウスを乗せた時だけ緑に */
+/* リンク：Wiki伝統の青＋下線 */
 .content a:not(.button) {
   color: #0645ad !important;
   text-decoration: underline !important;
-  transition: color 0.2s;
+  text-underline-offset: 2px;
 }
 .content a:hover {
   color: var(--sl-color-accent) !important;
 }
 
-/* --- 2. 記事エリア：Fandom風の「カード型」レイアウト --- */
+/* --- 2. レイアウト：記事エリアを「独立した板」にする --- */
 .main-frame {
   background-color: var(--sl-color-bg) !important;
 }
@@ -26,41 +26,62 @@
 .content-panel {
   background-color: #fff !important;
   border: 1px solid var(--sl-color-border) !important;
-  border-top: 4px solid var(--sl-color-accent) !important; /* 上部にアクセントライン */
-  margin: 15px !important;
-  padding: 2rem !important;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05) !important;
+  border-top: 4px solid var(--sl-color-accent) !important;
+  margin: 12px !important;
+  padding: 2rem 3rem !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
 }
 
-/* --- 3. 見出し：@wikiの力強さとStarlightの洗練 --- */
+/* --- 3. 見出し：鎖アイコンのズレ修正 ＆ デザイン --- */
+.content :is(h1, h2, h3, h4, h5) {
+  display: flex !important;
+  align-items: center !important;
+  flex-direction: row-reverse !important; /* アイコンを右側、文字を左側に配置 */
+  justify-content: flex-end !important;
+  gap: 0.5rem !important;
+}
+
+/* 鎖アイコン（アンカーリンク）の強制位置固定 */
+.content :is(h1, h2, h3, h4, h5) a[aria-hidden="true"] {
+  position: static !important; 
+  display: inline-flex !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: var(--sl-color-accent) !important;
+  opacity: 0.4;
+}
+
+.content :is(h1, h2, h3, h4, h5):hover a[aria-hidden="true"] {
+  opacity: 1;
+}
+
+/* 各見出しの個別装飾 */
 h1 {
-  font-size: 2.2rem !important;
-  border-bottom: 2px solid var(--sl-color-border) !important;
-  padding-bottom: 0.5rem;
+  font-size: 2rem !important;
+  border-bottom: 2px solid var(--sl-color-accent) !important;
+  padding-bottom: 8px;
   margin-bottom: 1.5rem !important;
-  color: #2c3e50;
 }
 
 h2 {
-  font-size: 1.5rem !important;
-  background: #f8f9fa;
-  border-left: 8px solid var(--sl-color-accent) !important;
-  border-bottom: 1px solid var(--sl-color-border) !important;
-  padding: 0.5rem 1rem !important;
+  font-size: 1.4rem !important;
+  background: linear-gradient(90deg, #f8f9fa 0%, #fff 100%);
+  border-left: 12px solid var(--sl-color-accent) !important;
+  border-bottom: 1px solid #ccd0d5 !important;
+  padding: 0.6rem 1rem !important;
   margin-top: 2.5rem !important;
-  display: flex;
-  align-items: center;
 }
 
 h3 {
-  font-size: 1.25rem !important;
-  border-bottom: 2px solid #ecf0f1 !important;
+  font-size: 1.2rem !important;
+  border-bottom: 1px solid #a2a9b1 !important;
   padding-left: 8px;
   border-left: 4px solid #bdc3c7;
   margin-top: 2rem !important;
 }
 
-/* --- 4. サイドバー：@wiki風メニュー構成 --- */
+/* --- 4. サイドバー：@wiki風メニュー --- */
 .sidebar-pane {
   background-color: #fff !important;
   border-right: 1px solid var(--sl-color-border);
@@ -69,51 +90,57 @@ h3 {
 .sidebar-content summary {
   font-weight: bold;
   background-color: #f1f3f5;
-  padding: 0.5rem 0.8rem !important;
   border-bottom: 1px solid var(--sl-color-border);
+  padding: 0.4rem 0.8rem !important;
 }
 
 .sidebar-content a {
   border-bottom: 1px dotted #e0e0e0 !important;
-  font-size: 0.95rem !important;
-  padding: 0.6rem 1rem !important;
+  font-size: 0.92rem !important;
+  padding: 0.5rem 1rem !important;
 }
 
 .sidebar-content a[aria-current="page"] {
-  background-color: #e8f5e9 !important; /* 薄い緑で現在地を表示 */
+  background-color: #e8f5e9 !important;
   color: var(--sl-color-accent) !important;
   border-left: 5px solid var(--sl-color-accent) !important;
-  font-weight: bold;
 }
 
-/* --- 5. マイクラ風テーブル（表）デザイン --- */
+/* --- 5. テーブル：幅の自動調整 --- */
 table {
-  width: 100%;
-  border: 2px solid #333 !important; /* マイクラのUIっぽい濃い枠線 */
+  width: auto !important;
+  min-width: 450px;
+  max-width: 100%;
+  border: 1px solid #a2a9b1 !important;
   border-collapse: collapse !important;
+  margin: 1.5rem 0 !important;
 }
 
 th {
-  background-color: #4a4a4a !important; /* 石っぽいグレー */
+  background-color: #444 !important;
   color: #fff !important;
-  border: 1px solid #333 !important;
-  padding: 10px !important;
+  border: 1px solid #a2a9b1 !important;
+  padding: 10px 15px !important;
+  text-align: left;
 }
 
 td {
-  border: 1px solid #ddd !important;
-  padding: 10px !important;
+  border: 1px solid #a2a9b1 !important;
+  padding: 10px 15px !important;
   background-color: #fff;
 }
 
 tr:nth-child(even) td {
-  background-color: #f9f9f9; /* 縞々にして読みやすく */
+  background-color: #f9f9f9;
 }
 
-/* --- 6. 広告エリアの調整 --- */
+/* --- 6. 広告・その他 --- */
 .top-ad-wrapper {
   margin-bottom: 2rem;
-  padding: 10px;
-  background: #fff;
-  border: 1px dashed var(--sl-color-border);
+  text-align: center;
+}
+
+.starlight-aside {
+  border-radius: 0 !important;
+  border-width: 1px 1px 1px 10px !important;
 }
