@@ -12,7 +12,7 @@
   --sl-color-border: #666666;
 }
 
-/* --- 2. レイアウト（余計な枠を削除） --- */
+/* --- 2. レイアウト --- */
 .content-panel {
   background-color: var(--sl-color-bg-content) !important;
   border: none !important; 
@@ -28,30 +28,32 @@ hr {
   opacity: 1 !important;
 }
 
-/* --- 3. 見出し：緑太棒・文字幅・鎖アイコンの修正 --- */
+/* --- 3. 【最重要】見出しと鎖アイコンのズレを根こそぎ直す --- */
 
-/* 見出し全体のコンテナ設定 */
 .sl-markdown-content :is(h1, h2, h3, h4, h5) {
   display: flex !important;
   align-items: center !important;
-  width: fit-content !important; /* 幅を文字に合わせる */
+  width: fit-content !important; /* 幅を文字＋アイコンに合わせる */
   max-width: 100% !important;
-  position: relative !important;
   
+  /* Starlightの「浮かせる設定」をリセット */
+  position: relative !important;
+  overflow: visible !important;
+
   /* 背景と線の設定 */
   background-color: #f8f9fa !important;
   border-bottom: 1px solid var(--sl-color-border) !important;
-  padding: 0.6rem 1.2rem 0.6rem 1rem !important;
+  padding: 0.6rem 1rem !important;
   margin: 2.5rem 0 1.5rem 0 !important;
-  gap: 10px !important;
+  gap: 0.5rem !important;
 }
 
-/* H2の緑太棒 */
+/* 緑の太棒 (H2) */
 .sl-markdown-content h2 {
   border-left: 10px solid var(--sl-color-accent) !important;
 }
 
-/* H3の灰太棒 */
+/* 灰の太棒 (H3) */
 .sl-markdown-content h3 {
   border-left: 5px solid #bdc3c7 !important;
   font-size: 1.25rem !important;
@@ -61,29 +63,36 @@ hr {
   background-color: rgba(255, 255, 255, 0.05) !important;
 }
 
-/* 【重要】鎖アイコンが左下に落ちるのを防ぎ、右側に配置する */
-.sl-markdown-content :is(h1, h2, h3, h4, h5) a[aria-hidden="true"] {
-  position: static !important; /* 絶対配置を完全に解除 */
-  display: inline-flex !important;
-  order: 2 !important; /* 文字(1)の後に配置 */
+/* 鎖アイコンを文字の右側に「強制接着」する */
+.sl-markdown-content :is(h1, h2, h3, h4, h5) > a[aria-hidden="true"] {
+  /* Starlightの絶対配置（浮かせる設定）を力ずくで解除 */
+  position: static !important; 
+  transform: none !important;
   margin: 0 !important;
-  padding: 0 !important;
+  padding: 0 4px !important;
+  
+  /* 見た目の調整 */
+  display: inline-flex !important;
+  align-items: center !important;
   color: var(--sl-color-accent) !important;
   opacity: 0.3;
-  width: auto !important;
-  height: auto !important;
+  
+  /* 文字の後に並べる */
+  order: 2 !important;
 }
 
-/* 文字部分の順序を1にする */
-.sl-markdown-content :is(h1, h2, h3, h4, h5) :not(a) {
-  order: 1 !important;
+/* 鎖アイコンの中のSVGがずれないように */
+.sl-markdown-content :is(h1, h2, h3, h4, h5) a[aria-hidden="true"] svg {
+  margin: 0 !important;
+  width: 1.25rem !important;
+  height: 1.25rem !important;
 }
 
 .sl-markdown-content :is(h1, h2, h3, h4, h5):hover a[aria-hidden="true"] {
   opacity: 1;
 }
 
-/* --- 4. 表 (テーブル)：右側の余白を消す --- */
+/* --- 4. 表 (テーブル) --- */
 .sl-markdown-content :is(table) {
   display: table !important;
   width: auto !important;
