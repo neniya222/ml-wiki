@@ -27,6 +27,10 @@ export default defineConfig({
 					link: '/rules',
 				},
 				{
+					label: '🚪 参加方法',
+					link: '/join',
+				},
+				{
 					label: '✨ 独自機能',
 					items: [
 						{ label: '🚀 テレポート機能', link: '/features/tp' },
