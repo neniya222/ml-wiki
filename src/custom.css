@@ -1,65 +1,106 @@
-/* --- 1. Wiki風の全体背景とフォント --- */
+/* --- 1. 全体の背景とWiki特有の「箱庭感」 --- */
 :root {
-  --sl-font-system: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-  --sl-color-accent: #007bff; /* Fandomっぽい青 */
-  --wiki-border-color: #ccc;
-  --wiki-header-bg: #f0f0f0;
+  --sl-color-accent: #007bff;        /* Fandom風のブルー */
+  --sl-color-bg: #f0f2f5;            /* @wikiっぽい薄いグレー背景 */
+  --sl-color-as-bg: #ffffff;         /* 記事エリアは白 */
+  --sl-color-border: #ccd0d5;        /* 境界線 */
+  --sl-content-width: 75rem;         /* 記事の幅を少し広げる */
 }
 
-/* 記事エリアを「白い紙」っぽく浮かせる */
+/* ダークモード時の調整 */
+:root[data-theme='dark'] {
+  --sl-color-bg: #1a1c20;
+  --sl-color-as-bg: #24272e;
+  --sl-color-border: #3e444d;
+}
+
+/* --- 2. 記事エリアを「紙」のように独立させる --- */
 .main-frame {
-  background-color: var(--sl-color-bg-main) !important;
-  border: 1px solid var(--wiki-border-color);
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-  padding: 1.5rem !important;
+  background-color: var(--sl-color-bg) !important;
 }
 
-/* --- 2. 見出しを「@wiki風」に装飾 --- */
-.content h2 {
-  border-bottom: 2px solid var(--sl-color-accent) !important;
-  border-left: 10px solid var(--sl-color-accent) !important;
-  background-color: var(--wiki-header-bg);
+.content-panel {
+  background-color: var(--sl-color-as-bg) !important;
+  border: 1px solid var(--sl-color-border);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* 軽い影で浮かせる */
+  margin-top: 1rem;
+  padding: 2rem !important;
+}
+
+/* --- 3. @wiki/Fandom風の見出しデザイン --- */
+/* H1 (ページタイトル) */
+h1 {
+  border-bottom: 3px solid var(--sl-color-accent);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem !important;
+  font-weight: bold;
+}
+
+/* H2 (大きな区切り) */
+h2 {
+  background: linear-gradient(transparent 70%, rgba(0,123,255,0.1) 70%); /* 下線風の背景 */
+  border-left: 8px solid var(--sl-color-accent);
   padding: 0.4rem 0.8rem !important;
-  margin-top: 2rem !important;
-  font-size: 1.5rem;
-  color: #333;
+  border-bottom: 1px solid var(--sl-color-border);
+  margin-top: 2.5rem !important;
 }
 
-.content h3 {
-  border-bottom: 1px solid var(--wiki-border-color);
+/* H3 (小見出し) */
+h3 {
+  border-bottom: 2px solid var(--sl-color-border);
   padding-bottom: 0.2rem;
-  margin-top: 1.5rem !important;
-  color: #555;
+  font-size: 1.4rem !important;
 }
 
-/* --- 3. テーブルを「データ集」っぽくする --- */
+/* --- 4. 鎖アイコン（リンク）の重なり完全修正 --- */
+.content :is(h1, h2, h3, h4, h5) {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.content :is(h1, h2, h3, h4, h5) a[aria-hidden="true"] {
+  position: static !important;
+  order: -1; /* 文字の前に置く */
+}
+
+/* --- 5. サイドバーの「Wikiメニュー」感 --- */
+.sidebar-pane {
+  background-color: var(--sl-color-as-bg) !important;
+  border-right: 1px solid var(--sl-color-border);
+}
+
+.sidebar-content a {
+  border-radius: 0 !important; /* 角を丸くしない */
+  border-left: 3px solid transparent;
+}
+
+.sidebar-content a[aria-current="page"] {
+  background-color: rgba(0,123,255,0.05) !important;
+  border-left: 3px solid var(--sl-color-accent);
+  color: var(--sl-color-accent) !important;
+}
+
+/* --- 6. テーブル（表）をWiki風に --- */
 table {
+  border-collapse: collapse !important;
   width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
 }
 
 th {
-  background-color: var(--sl-color-accent) !important;
-  color: white !important;
-  border: 1px solid #fff;
-  padding: 8px !important;
+  background-color: #f8f9fa !important;
+  border: 1px solid var(--sl-color-border) !important;
+  color: #333 !important;
+}
+
+:root[data-theme='dark'] th {
+  background-color: #2d323a !important;
+  color: #eee !important;
 }
 
 td {
-  border: 1px solid var(--wiki-border-color);
-  padding: 8px !important;
-  background-color: #fff;
-}
-
-/* --- 4. 鎖アイコン（リンク）のズレを完全に修正 --- */
-.content :is(h1, h2, h3) a[aria-hidden="true"] {
-  position: relative !important;
-  vertical-align: middle;
-  margin-right: 8px !important;
-}
-
-.content :is(h1, h2, h3) {
-  display: flex;
-  align-items: center;
+  border: 1px solid var(--sl-color-border) !important;
 }
