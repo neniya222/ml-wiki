@@ -1,146 +1,110 @@
-/* --- 1. ベース設定：Wikiの密度と配色 --- */
+/* --- 1. ベース設定：テーマ切り替えでバグらないための共通変数 --- */
 :root {
   --sl-font-size-base: 15px;
   --sl-content-width: 82rem;
   --sl-color-accent: #2e7d32;        /* マイクラ風の濃い緑 */
-  --sl-color-bg: #f0f2f5;            /* @wiki風グレー */
-  --sl-color-as-bg: #ffffff;
   --sl-color-border: #a2a9b1;        /* Wiki標準の境界線 */
+  --sl-color-bg-content: #ffffff;    /* 記事エリアの背景（白） */
 }
 
-/* リンク：Wiki伝統の青＋下線 */
+/* ダークモード時の色調整（バグ防止） */
+:root[data-theme='dark'] {
+  --sl-color-bg-content: #24272e;    /* ダークモード時は暗い色に */
+  --sl-color-border: #4a4a4a;
+}
+
+/* リンク：Wiki伝統の青。ダークモードでは少し明るい青に */
 .content a:not(.button) {
   color: #0645ad !important;
   text-decoration: underline !important;
-  text-underline-offset: 2px;
 }
-.content a:hover {
-  color: var(--sl-color-accent) !important;
+:root[data-theme='dark'] .content a:not(.button) {
+  color: #639aff !important;
 }
 
-/* --- 2. レイアウト：記事エリアを「独立した板」にする --- */
+/* --- 2. レイアウト：余計な外枠と上部の太線を削除 --- */
 .main-frame {
   background-color: var(--sl-color-bg) !important;
 }
 
 .content-panel {
-  background-color: #fff !important;
-  border: 1px solid var(--sl-color-border) !important;
-  border-top: 4px solid var(--sl-color-accent) !important;
-  margin: 12px !important;
-  padding: 2rem 3rem !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+  background-color: var(--sl-color-bg-content) !important;
+  /* 記事の周りの「枠」を消す場合は border: none; にします */
+  border: none !important; 
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 1.5rem 2rem !important;
 }
 
-/* --- 3. 見出し：鎖アイコンのズレ修正 ＆ デザイン --- */
+/* --- 3. 見出し：鎖アイコンの修正 ＆ デザイン --- */
 .content :is(h1, h2, h3, h4, h5) {
   display: flex !important;
   align-items: center !important;
-  flex-direction: row-reverse !important; /* アイコンを右側、文字を左側に配置 */
+  flex-direction: row-reverse !important;
   justify-content: flex-end !important;
   gap: 0.5rem !important;
 }
 
-/* 鎖アイコン（アンカーリンク）の強制位置固定 */
 .content :is(h1, h2, h3, h4, h5) a[aria-hidden="true"] {
   position: static !important; 
   display: inline-flex !important;
-  align-items: center !important;
-  margin: 0 !important;
-  padding: 0 !important;
   color: var(--sl-color-accent) !important;
   opacity: 0.4;
 }
 
-.content :is(h1, h2, h3, h4, h5):hover a[aria-hidden="true"] {
-  opacity: 1;
-}
-
-/* 各見出しの個別装飾 */
 h1 {
   font-size: 2rem !important;
   border-bottom: 2px solid var(--sl-color-accent) !important;
   padding-bottom: 8px;
-  margin-bottom: 1.5rem !important;
+  margin-bottom: 1rem !important;
 }
 
 h2 {
   font-size: 1.4rem !important;
-  background: linear-gradient(90deg, #f8f9fa 0%, #fff 100%);
-  border-left: 12px solid var(--sl-color-accent) !important;
-  border-bottom: 1px solid #ccd0d5 !important;
-  padding: 0.6rem 1rem !important;
-  margin-top: 2.5rem !important;
-}
-
-h3 {
-  font-size: 1.2rem !important;
-  border-bottom: 1px solid #a2a9b1 !important;
-  padding-left: 8px;
-  border-left: 4px solid #bdc3c7;
+  border-left: 10px solid var(--sl-color-accent) !important;
+  border-bottom: 1px solid var(--sl-color-border) !important;
+  padding: 0.5rem 1rem !important;
   margin-top: 2rem !important;
 }
 
-/* --- 4. サイドバー：@wiki風メニュー --- */
-.sidebar-pane {
-  background-color: #fff !important;
-  border-right: 1px solid var(--sl-color-border);
-}
-
-.sidebar-content summary {
-  font-weight: bold;
-  background-color: #f1f3f5;
-  border-bottom: 1px solid var(--sl-color-border);
-  padding: 0.4rem 0.8rem !important;
-}
-
-.sidebar-content a {
-  border-bottom: 1px dotted #e0e0e0 !important;
-  font-size: 0.92rem !important;
-  padding: 0.5rem 1rem !important;
-}
-
-.sidebar-content a[aria-current="page"] {
-  background-color: #e8f5e9 !important;
-  color: var(--sl-color-accent) !important;
-  border-left: 5px solid var(--sl-color-accent) !important;
-}
-
-/* --- 5. テーブル：幅の自動調整 --- */
+/* --- 4. 表（テーブル）：文字をちゃんと囲い、左端に寄せる --- */
 table {
+  /* width: auto にすることで、文字量に合わせて縮みます */
   width: auto !important;
-  min-width: 450px;
-  max-width: 100%;
-  border: 1px solid #a2a9b1 !important;
+  /* 左右の余白をなくし、文字の開始位置（左端）に合わせる */
+  margin-left: 0 !important;
+  margin-right: auto !important;
   border-collapse: collapse !important;
-  margin: 1.5rem 0 !important;
+  border: 1px solid var(--sl-color-border) !important;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 th {
   background-color: #444 !important;
   color: #fff !important;
-  border: 1px solid #a2a9b1 !important;
-  padding: 10px 15px !important;
-  text-align: left;
+  border: 1px solid var(--sl-color-border) !important;
+  padding: 8px 15px !important;
+  white-space: nowrap; /* 見出しの改行を防ぐ */
 }
 
 td {
-  border: 1px solid #a2a9b1 !important;
-  padding: 10px 15px !important;
-  background-color: #fff;
+  border: 1px solid var(--sl-color-border) !important;
+  padding: 8px 15px !important;
 }
 
-tr:nth-child(even) td {
-  background-color: #f9f9f9;
+/* --- 5. 説明文（Description） --- */
+.page-description {
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: rgba(0,0,0,0.03);
+  border-left: 4px solid var(--sl-color-border);
+  color: var(--sl-color-text-muted);
+  font-size: 0.95rem;
 }
 
-/* --- 6. 広告・その他 --- */
+/* --- 6. 広告 --- */
 .top-ad-wrapper {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   text-align: center;
-}
-
-.starlight-aside {
-  border-radius: 0 !important;
-  border-width: 1px 1px 1px 10px !important;
 }
