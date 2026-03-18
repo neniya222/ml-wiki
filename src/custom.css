@@ -1,106 +1,113 @@
-/* --- 1. 全体の背景とWiki特有の「箱庭感」 --- */
+/* --- 1. 基本設定（Wiki特有のフォント感と色） --- */
 :root {
-  --sl-color-accent: #007bff;        /* Fandom風のブルー */
-  --sl-color-bg: #f0f2f5;            /* @wikiっぽい薄いグレー背景 */
-  --sl-color-as-bg: #ffffff;         /* 記事エリアは白 */
-  --sl-color-border: #ccd0d5;        /* 境界線 */
-  --sl-content-width: 75rem;         /* 記事の幅を少し広げる */
+  --sl-font-size-base: 14px;         /* Wikiは文字が小さめ */
+  --sl-line-height: 1.6;
+  --sl-color-accent: #075697;        /* 落ち着いた紺色（@wiki/Fandom風） */
+  --sl-color-bg: #f6f6f6;            /* 背景は少し汚れた感じのグレー */
+  --sl-color-as-bg: #ffffff;
+  --sl-color-border: #a2a9b1;        /* 境界線を濃くして「枠」を強調 */
+  --sl-content-width: 80rem;         /* 画面幅を広く使う */
 }
 
-/* ダークモード時の調整 */
-:root[data-theme='dark'] {
-  --sl-color-bg: #1a1c20;
-  --sl-color-as-bg: #24272e;
-  --sl-color-border: #3e444d;
+/* リンクを青く、下線ありに（これぞWiki） */
+.content a:not(.button) {
+  color: #0645ad !important;
+  text-decoration: underline !important;
+}
+.content a:visited {
+  color: #0b0080 !important;
 }
 
-/* --- 2. 記事エリアを「紙」のように独立させる --- */
+/* --- 2. コンテンツエリアを「箱」にする --- */
 .main-frame {
   background-color: var(--sl-color-bg) !important;
 }
 
 .content-panel {
-  background-color: var(--sl-color-as-bg) !important;
-  border: 1px solid var(--sl-color-border);
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* 軽い影で浮かせる */
-  margin-top: 1rem;
-  padding: 2rem !important;
+  background-color: #fff !important;
+  border: 1px solid #a2a9b1 !important;
+  margin: 10px !important;
+  padding: 1.5rem 2.5rem !important;
+  box-shadow: none !important; /* 影を消して平面にする */
 }
 
-/* --- 3. @wiki/Fandom風の見出しデザイン --- */
-/* H1 (ページタイトル) */
+/* --- 3. 見出しの完全再現 --- */
+/* H1: ページタイトル（下線ドーン！） */
 h1 {
-  border-bottom: 3px solid var(--sl-color-accent);
-  padding-bottom: 0.5rem;
-  margin-bottom: 1.5rem !important;
-  font-weight: bold;
-}
-
-/* H2 (大きな区切り) */
-h2 {
-  background: linear-gradient(transparent 70%, rgba(0,123,255,0.1) 70%); /* 下線風の背景 */
-  border-left: 8px solid var(--sl-color-accent);
-  padding: 0.4rem 0.8rem !important;
-  border-bottom: 1px solid var(--sl-color-border);
-  margin-top: 2.5rem !important;
-}
-
-/* H3 (小見出し) */
-h3 {
-  border-bottom: 2px solid var(--sl-color-border);
+  font-size: 1.8rem !important;
+  border-bottom: 1px solid #a2a9b1 !important;
   padding-bottom: 0.2rem;
-  font-size: 1.4rem !important;
+  margin-bottom: 1rem !important;
+  font-family: sans-serif;
 }
 
-/* --- 4. 鎖アイコン（リンク）の重なり完全修正 --- */
-.content :is(h1, h2, h3, h4, h5) {
-  display: flex;
-  align-items: center;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-  gap: 0.5rem;
+/* H2: セクション見出し（左に青太線 ＋ 背景薄青） */
+h2 {
+  font-size: 1.5rem !important;
+  background: #f8f9fa;
+  border-left: 10px solid var(--sl-color-accent) !important;
+  border-bottom: 1px solid #a2a9b1 !important;
+  padding: 0.5rem 1rem !important;
+  margin-top: 2rem !important;
 }
 
-.content :is(h1, h2, h3, h4, h5) a[aria-hidden="true"] {
-  position: static !important;
-  order: -1; /* 文字の前に置く */
+/* H3: 小見出し（下線のみ） */
+h3 {
+  font-size: 1.2rem !important;
+  border-bottom: 1px solid #a2a9b1 !important;
+  padding-bottom: 0.1rem;
+  margin-top: 1.5rem !important;
 }
 
-/* --- 5. サイドバーの「Wikiメニュー」感 --- */
+/* --- 4. サイドバーを「メニューリスト」化 --- */
 .sidebar-pane {
-  background-color: var(--sl-color-as-bg) !important;
-  border-right: 1px solid var(--sl-color-border);
+  background-color: transparent !important;
+  border-right: 1px solid #a2a9b1;
+}
+
+.sidebar-content {
+  padding-top: 1rem !important;
+}
+
+.sidebar-content summary {
+  font-weight: bold;
+  background-color: #eaecf0; /* 折りたたみメニューの背景 */
+  padding: 0.2rem 0.5rem !important;
+  border: 1px solid #a2a9b1;
 }
 
 .sidebar-content a {
-  border-radius: 0 !important; /* 角を丸くしない */
-  border-left: 3px solid transparent;
+  border-bottom: 1px dotted #a2a9b1 !important; /* ドットの下線 */
+  padding: 0.3rem 1rem !important;
+  font-size: 0.9rem !important;
 }
 
 .sidebar-content a[aria-current="page"] {
-  background-color: rgba(0,123,255,0.05) !important;
-  border-left: 3px solid var(--sl-color-accent);
-  color: var(--sl-color-accent) !important;
+  background-color: #fff !important;
+  font-weight: bold;
+  color: #000 !important;
+  border-left: 4px solid var(--sl-color-accent) !important;
 }
 
-/* --- 6. テーブル（表）をWiki風に --- */
+/* --- 5. テーブルを「表」らしく --- */
 table {
-  border-collapse: collapse !important;
-  width: 100%;
+  border: 1px solid #a2a9b1 !important;
+  margin: 1rem 0;
 }
 
 th {
-  background-color: #f8f9fa !important;
-  border: 1px solid var(--sl-color-border) !important;
-  color: #333 !important;
-}
-
-:root[data-theme='dark'] th {
-  background-color: #2d323a !important;
-  color: #eee !important;
+  background-color: #f2f2f2 !important;
+  border: 1px solid #a2a9b1 !important;
+  font-weight: bold;
 }
 
 td {
-  border: 1px solid var(--sl-color-border) !important;
+  border: 1px solid #a2a9b1 !important;
+  padding: 0.4rem !important;
+}
+
+/* --- 6. 右側の目次(On this page)を隠すか調整 --- */
+/* Wikiっぽさを出すため、右の目次を少し目立たなくします */
+.right-sidebar {
+  border-left: 1px solid #a2a9b1 !important;
 }
