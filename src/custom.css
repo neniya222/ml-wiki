@@ -1,42 +1,37 @@
-/* --- 1. ベース設定：テーマ切り替えでバグらないための共通変数 --- */
+/* --- 1. ベース設定 --- */
 :root {
   --sl-font-size-base: 15px;
   --sl-content-width: 82rem;
-  --sl-color-accent: #2e7d32;        /* マイクラ風の濃い緑 */
-  --sl-color-border: #a2a9b1;        /* Wiki標準の境界線 */
-  --sl-color-bg-content: #ffffff;    /* 記事エリアの背景（白） */
+  --sl-color-accent: #2e7d32;
+  --sl-color-border: #a2a9b1;        /* ライトモードの線 */
+  --sl-color-bg-content: #ffffff;
 }
 
-/* ダークモード時の色調整（バグ防止） */
+/* ダークモード時の色調整 */
 :root[data-theme='dark'] {
-  --sl-color-bg-content: #24272e;    /* ダークモード時は暗い色に */
-  --sl-color-border: #4a4a4a;
+  --sl-color-bg-content: #24272e;
+  --sl-color-border: #666666;        /* ダークモードでも見える濃いグレー */
+  --sl-color-text-muted: #cccccc;
 }
 
-/* リンク：Wiki伝統の青。ダークモードでは少し明るい青に */
-.content a:not(.button) {
-  color: #0645ad !important;
-  text-decoration: underline !important;
-}
-:root[data-theme='dark'] .content a:not(.button) {
-  color: #639aff !important;
-}
-
-/* --- 2. レイアウト：余計な外枠と上部の太線を削除 --- */
-.main-frame {
-  background-color: var(--sl-color-bg) !important;
+/* --- 2. 水平線 (---) の見た目修正 --- */
+hr {
+  border: 0;
+  border-top: 1px solid var(--sl-color-border) !important;
+  margin: 2rem 0 !important;
+  opacity: 1 !important; /* 透明度をなくしてハッキリさせる */
 }
 
+/* --- 3. レイアウト：余計な外枠を削除 --- */
 .content-panel {
   background-color: var(--sl-color-bg-content) !important;
-  /* 記事の周りの「枠」を消す場合は border: none; にします */
   border: none !important; 
   box-shadow: none !important;
   margin: 0 !important;
   padding: 1.5rem 2rem !important;
 }
 
-/* --- 3. 見出し：鎖アイコンの修正 ＆ デザイン --- */
+/* --- 4. 見出し & 鎖アイコン --- */
 .content :is(h1, h2, h3, h4, h5) {
   display: flex !important;
   align-items: center !important;
@@ -56,7 +51,6 @@ h1 {
   font-size: 2rem !important;
   border-bottom: 2px solid var(--sl-color-accent) !important;
   padding-bottom: 8px;
-  margin-bottom: 1rem !important;
 }
 
 h2 {
@@ -64,46 +58,46 @@ h2 {
   border-left: 10px solid var(--sl-color-accent) !important;
   border-bottom: 1px solid var(--sl-color-border) !important;
   padding: 0.5rem 1rem !important;
-  margin-top: 2rem !important;
 }
 
-/* --- 4. 表（テーブル）：文字をちゃんと囲い、左端に寄せる --- */
-table {
-  /* width: auto にすることで、文字量に合わせて縮みます */
+/* --- 5. 表（テーブル）：右側の余白を完全に消す --- */
+/* Starlightの「幅100%」を解除 */
+.sl-markdown-content :is(table) {
+  display: table !important;
   width: auto !important;
-  /* 左右の余白をなくし、文字の開始位置（左端）に合わせる */
+  max-width: 100% !important;
   margin-left: 0 !important;
   margin-right: auto !important;
+}
+
+table {
   border-collapse: collapse !important;
   border: 1px solid var(--sl-color-border) !important;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  background-color: var(--sl-color-bg-content) !important;
 }
 
 th {
   background-color: #444 !important;
   color: #fff !important;
   border: 1px solid var(--sl-color-border) !important;
-  padding: 8px 15px !important;
-  white-space: nowrap; /* 見出しの改行を防ぐ */
+  padding: 8px 16px !important;
+  white-space: nowrap !important;
 }
 
 td {
   border: 1px solid var(--sl-color-border) !important;
-  padding: 8px 15px !important;
+  padding: 8px 16px !important;
 }
 
-/* --- 5. 説明文（Description） --- */
+/* --- 6. その他 --- */
 .page-description {
   margin-bottom: 1.5rem;
-  padding: 0.5rem 1rem;
-  background-color: rgba(0,0,0,0.03);
+  padding: 0.8rem 1rem;
+  background-color: rgba(128, 128, 128, 0.1);
   border-left: 4px solid var(--sl-color-border);
   color: var(--sl-color-text-muted);
-  font-size: 0.95rem;
 }
 
-/* --- 6. 広告 --- */
 .top-ad-wrapper {
   margin-bottom: 1.5rem;
   text-align: center;
