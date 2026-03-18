@@ -1,40 +1,65 @@
-/* --- 見出しのリンクアイコン（鎖マーク）の重なりを修正 --- */
+/* --- 1. Wiki風の全体背景とフォント --- */
+:root {
+  --sl-font-system: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  --sl-color-accent: #007bff; /* Fandomっぽい青 */
+  --wiki-border-color: #ccc;
+  --wiki-header-bg: #f0f0f0;
+}
 
-/* 見出し全体のレイアウトをリセットして整列させる */
-.content :is(h1, h2, h3, h4, h5) {
+/* 記事エリアを「白い紙」っぽく浮かせる */
+.main-frame {
+  background-color: var(--sl-color-bg-main) !important;
+  border: 1px solid var(--wiki-border-color);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  padding: 1.5rem !important;
+}
+
+/* --- 2. 見出しを「@wiki風」に装飾 --- */
+.content h2 {
+  border-bottom: 2px solid var(--sl-color-accent) !important;
+  border-left: 10px solid var(--sl-color-accent) !important;
+  background-color: var(--wiki-header-bg);
+  padding: 0.4rem 0.8rem !important;
+  margin-top: 2rem !important;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.content h3 {
+  border-bottom: 1px solid var(--wiki-border-color);
+  padding-bottom: 0.2rem;
+  margin-top: 1.5rem !important;
+  color: #555;
+}
+
+/* --- 3. テーブルを「データ集」っぽくする --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+th {
+  background-color: var(--sl-color-accent) !important;
+  color: white !important;
+  border: 1px solid #fff;
+  padding: 8px !important;
+}
+
+td {
+  border: 1px solid var(--wiki-border-color);
+  padding: 8px !important;
+  background-color: #fff;
+}
+
+/* --- 4. 鎖アイコン（リンク）のズレを完全に修正 --- */
+.content :is(h1, h2, h3) a[aria-hidden="true"] {
+  position: relative !important;
+  vertical-align: middle;
+  margin-right: 8px !important;
+}
+
+.content :is(h1, h2, h3) {
   display: flex;
   align-items: center;
-  flex-direction: row-reverse; /* アイコンを左、文字を右に並べる */
-  justify-content: flex-end;
-  gap: 0.5rem; /* アイコンと文字の間の隙間 */
-}
-
-/* 鎖アイコン自体の位置固定を解除する */
-.content :is(h1, h2, h3, h4, h5) a[aria-hidden="true"] {
-  position: static !important;
-  display: inline-flex;
-  margin: 0 !important;
-  padding: 0 !important;
-  color: var(--sl-color-accent) !important;
-}
-
-/* アイコン内のSVGサイズを微調整 */
-.content :is(h1, h2, h3, h4, h5) a svg {
-  width: 1.25rem;
-  height: 1.25rem;
-  opacity: 0.6; /* 控えめな薄さに（マウスを乗せると濃くなる設定も可） */
-}
-
-/* マウスを乗せた時だけ鎖アイコンをはっきりさせる（お好みで） */
-.content :is(h1, h2, h3, h4, h5):hover a svg {
-  opacity: 1;
-}
-
-/* 前回のh2のデザイン（左線など）を維持しつつ調整 */
-h2 {
-  border-left: 6px solid var(--sl-color-accent);
-  padding: 0.5rem 1rem !important;
-  background: rgba(128, 128, 128, 0.05);
-  margin-top: 2rem !important;
-  width: 100%; /* 横幅いっぱいにする */
 }
