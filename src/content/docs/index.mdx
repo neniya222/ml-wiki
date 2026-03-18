@@ -3,14 +3,18 @@ title: MiLight Server Wiki
 description: サバイバル中心のマインクラフトサーバー
 template: splash
 hero:
-  tagline: サバイバル中心のマインクラフトサーバーです！！<br />このサーバーではスキルや一括破壊など、普通のサバイバルにはない機能があります！！
+  tagline: サバイバル中心のマインクラフトサーバーです！！<br />スキルや一括破壊など、普通のサバイバルにはない機能が盛りだくさん！
   image:
-    file: ../../assets//mls-icon.webp
+    file: ../../assets/mls-icon.webp
   actions:
     - text: 利用規約を確認する
       link: /rules/
       icon: right-arrow
       variant: primary
+    - text: 参加方法を確認する
+      link: /guide/connection/
+      icon: right-arrow
+      variant: secondary
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
@@ -19,7 +23,7 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 :::caution[開発中]
 現在、MiLight Serverは**正式公開に向けて鋭意開発中**です！！
-最新情報は本Wikiや公式Discord（準備中）をチェックしてください。
+最新情報は本Wikiや公式Discordをチェックしてください。
 :::
 
 ---
@@ -27,17 +31,37 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 ## 🎮 サーバーの特徴
 
 <CardGrid stagger>
+  <Card title="テレポート機能" icon="rocket">
+    `/tpa` コマンドなどで、プレイヤー同士の移動がスムーズに行えます。
+    [詳細を見る](/features/tp/)
+  </Card>
+  <Card title="土地保護" icon="shield">
+    金のシャベルを使って自分の土地を保護し、荒らしから守ります。
+    [詳細を見る](/features/claims/)
+  </Card>
+  <Card title="チェスト・ドア保護" icon="framer-lock">
+    看板を貼るだけで、チェストやかまど、ドアに自分専用の鍵をかけられます。
+    [詳細を見る](/features/cdhogo/)
+  </Card>
   <Card title="特殊スキル" icon="star">
     採掘や戦闘を繰り返すことでレベルアップ！自分だけのステータスを強化しよう。
+    [詳細を見る](/features/skills/)
   </Card>
-  <Card title="一括破壊機能" icon="farlight">
+  <Card title="一括破壊機能" icon="pencils">
     木こりや鉱石掘りもサクサク。作業のストレスを減らして、建築や冒険に集中できます。
+    [詳細を見る](#)
+  </Card>
+  <Card title="エッグキャッチャー" icon="starlight">
+    卵を投げつけることでモブを「スポーンエッグ」として捕獲できます！
+    [詳細を見る](/features/eggc/)
   </Card>
 </CardGrid>
 
 ---
 
 ## 🔗 クイックリンク
-* [🛡️ 利用規約・禁止事項](/rules)
-* [📖 初心者ガイド（準備中）](#)
-* [🗺️ サーバーマップ（準備中）](#)
+* [📜 利用規約・禁止事項](/rules/)
+* [🚪 サーバー参加方法](/guide/connection/)
+* [📜 🏠 公式サイト](#)
+* [📄 公式Wiki](https://wiki.mlms.n1e.net/)
+* [💬 公式Discord](https://discord.gg/UyKV4BDxBR)
