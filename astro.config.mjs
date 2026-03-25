@@ -6,7 +6,7 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'MiLight Server Wiki',
+			title: 'MiLight Survival Server Wiki',
 
 			favicon: '/favicon.png',
 
@@ -43,7 +43,7 @@ export default defineConfig({
 				{
 					label: '⛓️ 関連リンク',
 					items: [
-						{ label: '🏠 公式サイト-準備中', link: '#' },
+						{ label: '🏠 公式サイト', link: 'http://www-mlms.n1e.net' },
 						{ label: '📄 公式Wiki', link: 'http://wiki-mlms.n1e.net' },
 						{ label: '🗺️ ウェブマップ', link: 'http://map-mlms.n1e.net' },
 						{ label: '💬 公式Discord', link: 'http://discord.gg/UyKV4BDxBR' },
