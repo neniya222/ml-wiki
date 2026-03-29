@@ -36,6 +36,7 @@ export default defineConfig({
 						{ label: '🚀 テレポート機能', link: '/features/tp' },
 						{ label: '🛡️ 土地保護', link: '/features/claims' },
 						{ label: '📦️ チェスト・ドアの保護', link: '/features/cdhogo' },
+						{ label: '⛏️ 一括破壊', link: '/features/veinminer' },
 						{ label: '🏆 スキル機能', link: '/features/skills' },
 						{ label: '🥚 エッグキャッチャー', link: '/features/eggc' },
 					],
