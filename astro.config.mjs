@@ -20,7 +20,6 @@ export default defineConfig({
         Sidebar: './src/components/SidebarWithAd.astro',
 	    },
 
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
 			sidebar: [
 				{
 					label: '🛡️ 利用規約',
